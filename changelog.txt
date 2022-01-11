@@ -1,3 +1,5 @@
+CHANGELOG
+
 January 11, 2022
 
 Version 0.6 BETA
