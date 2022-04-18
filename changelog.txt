@@ -1,10 +1,17 @@
 CHANGELOG
 
-Feburary 18, 2022
+April 18, 2022
 
-Version 1.1 ALPHA
+Version 1.2 ALPHA [Discontinued]
 
-- Changed the Background (Added in version 0.8.2 BETA)
-- Made the browser open Friday Night Funkin' instead.
-- Made the GDPS tools button a changelog (Added in version 0.7.1 BETA)
-- Waiting for Geometry Dash 2.2....
+This page has been discontinued due to time constraints and just overall laziness and will instead be used to play backups of my itch.io games. The website is still functional, however and gets the games from a folder in the website. This is just a heads up. It was nice to have this site.
+
+- Replaced Friday Night Funkin' with a TG20 Games window to play all my games as itch.io backups
+- Added all my itch.io games as backups to the site. List can be found either at https://resite.link/tg20games or https://tg20yt.github.io/tg20games/games.html
+- Changed welcome screen to a warning indicating that this site is used for hosting of my itch.io backups now. (it's obvious if you went to the website without any subpages in the url, an example is adding /os.html to https://tg20yt.github.io)
+- Fixed the double-window glitch again (sorta)
+- Changed name to "Legacy Site"
+- Added custom 404 page. Try it out by entering this url - https://tg20yt.github.io/404.html
+- Played Geometry Dash on Oculus Quest 2. Not kidding, I actually did. Check out my chromebook tutorial on how to do it here - https://www.youtube.com/watch?v=_1FzL2sblR4
+
+And my gameplay here - https://www.youtube.com/watch?v=Tr0UWAJwlQU
