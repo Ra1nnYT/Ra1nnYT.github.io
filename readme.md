@@ -12,3 +12,9 @@ compiled Getting Over It Multiplayer, compiled Friday Night Funkin' Week 7 to be
 - Ezlambry (Scratch): Most of the multiplayer code for Getting Over It
 - Ninjamuffin99, EvilSk8er, PhantomArcade, Kawai Sprite: Creators of Friday Night Funkin'
 - Newgrounds: Hosting the original Friday Night Funkin' Week 7
+
+Thanks for visiting the site!
+
+From TG20
+
+😊❤
