@@ -2,6 +2,9 @@ Welcome to the discontinued TG20 website!
 This is the "legacy" version of my website. 
 It will occasionally be updated, but don't expect major changes at all. Hope ya'll enjoy my dumb funny site!
 
+![VRChat_2022-12-13_16-44-11 708_1920x1080](https://user-images.githubusercontent.com/79722408/207460929-afd1bef8-a6f4-47a6-9224-13126e6db6f4.png)
+
+
 Credits:
 - JerosGamer89 and WylieMaster: Source code for the site
 - LAX1DUDE: Minecraft: Browser Edition source code
