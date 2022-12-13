@@ -1,6 +1,6 @@
 Welcome to the discontinued TG20 website!
 This is the "legacy" version of my website. 
-It will no longer be updated and will be used to host backups of my games from itch.io to be played.
+It will occasionally be updated, but don't expect major changes at all. Hope ya'll enjoy my dumb funny site!
 
 Credits:
 - JerosGamer89 and WylieMaster: Source code for the site
