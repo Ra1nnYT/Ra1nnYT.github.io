@@ -1,4 +1,5 @@
 <h1>Forked so that I can update it at will.</h1>
+<h2>Any links on the site will most likely lead to tg20yt.github.io instead of tg20hd.github.io. I am TG20YT. Just check my channel on this account. Also I am too lazy to update the links on this site so ye</h2>
 
 Welcome to the discontinued TG20 website!
 This is the "legacy" version of my website. 
