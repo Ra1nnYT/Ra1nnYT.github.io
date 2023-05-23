@@ -1,3 +1,5 @@
+<h1>Forked so that I can update it at will.</h1>
+
 Welcome to the discontinued TG20 website!
 This is the "legacy" version of my website. 
 It will occasionally be updated, but don't expect major changes at all. Hope ya'll enjoy my dumb funny site!
