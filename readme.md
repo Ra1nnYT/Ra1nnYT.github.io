@@ -26,4 +26,5 @@ From TG20
 
 😊❤
 
-yall why tf did I use html code to format this lol
+
+Hi this is Rainn from 2024, two years after the document was made. I have one question: why tf did I use html code to format this? lol
