@@ -75,7 +75,7 @@
         .floating {
             animation: float 3s ease-in-out infinite;
         }
-        .pronoun-button {
+        .pronoun-button, .old-homepage-button {
             display: inline-block;
             padding: 5px 10px;
             background: linear-gradient(to bottom, #4cd964, #32b34a);
@@ -85,6 +85,11 @@
             cursor: pointer;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+        .old-homepage-button {
+            background: linear-gradient(to bottom, #ff9500, #ff5e3a);
+            border-color: #ff5e3a;
         }
         .modal {
             display: none;
@@ -138,7 +143,7 @@
                     <img src="Yt1.jpg" alt="YouTube" width="50" height="50">
                 </a>
                 <a href="https://x.com/Ra1nnYT_" target="_blank" class="social-link floating">
-                    <img src="twitter.ppg" alt="Twitter" width="50" height="50">
+                    <img src="twitter.png" alt="Twitter" width="50" height="50">
                 </a>
                 <a href="https://github.com/TG20HD/" target="_blank" class="social-link floating">
                     <img src="github.png" alt="GitHub" width="50" height="50">
@@ -147,6 +152,7 @@
         </main>
         <footer>
             &copy; 2024 Rainn's Skeuomorphic World
+            <p><a href="start.html" class="old-homepage-button">Go back to the old homepage</a></p>
         </footer>
     </div>
 
@@ -193,10 +199,4 @@
         }
 
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-</body>
-</html>
+            if (event.target == modal
