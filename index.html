@@ -1,114 +1,206 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Rina's World</title>
-  <style>
-    /* Glassmorphic styles */
-    .glassmorphic-box {
-      background: rgba(0, 191, 255, 0.25);
-      box-shadow: 0px 8px 32px 0px #004178;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border-radius: 10px;
-      border: 1px solid rgba(224, 247, 250, 0.18);
-      width: 500px;
-      height: 200px;
-      color: #e0f7fa;
-      font-size: 72px;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .glassmorphic-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0px 12px 36px 0px #004178;
-    }
-
-    /* Other styles */
-    .profile-pic {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-    }
-
-    .pronoun-button {
-      background-color: #006d77;
-      color: #e0f7fa;
-      padding: 8px 16px;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-
-    .social-link {
-      margin: 0 8px;
-    }
-
-    .floating {
-      display: inline-block;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-
-    .old-homepage-button {
-      color: #e0f7fa;
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rina's World</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #a0a0a0, #d0d0d0);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: url('data:image/png;base64,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');
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(to bottom, #4a90e2, #357ae8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #2d6dc7;
+        }
+        main {
+            padding: 20px;
+            background: white;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            border: 5px solid white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        footer {
+            background: linear-gradient(to bottom, #f7f7f7, #d7d7d7);
+            border-top: 1px solid #b5b5b5;
+            padding: 10px;
+            text-align: center;
+            color: #666;
+            font-size: 0.8em;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .pronoun-button {
+            display: inline-block;
+            padding: 5px 10px;
+            background: linear-gradient(to bottom, #4cd964, #32b34a);
+            color: white;
+            border: 1px solid #28a745;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+        .old-homepage-button {
+            background: linear-gradient(to bottom, #ff9500, #ff5e3a);
+            border-color: #ff5e3a;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="glassmorphic-box">Rina's World</div>
-
-    <main role="main">
-      <img src="rainn.jpg" alt="Rainn" class="profile-pic">
-
-      <h2>Hey, I'm Rina!</h2>
-
-      <a href="#" id="pronounButton" class="pronoun-button">Pronouns: Any</a>
-
-      <p>I'm a 16-year-old genderfluid person who loves gaming and creating cool stuff.</p>
-
-      <p><strong>Interests:</strong> Geometry Dash, Friday Night Funkin'</p>
-
-      <div class="social-links">
-        <a href="https://youtube.com/@ItsRainningOutside" class="social-link floating" target="_blank">
-          <img src="Yt1.jpg" alt="YouTube" width="50" height="50">
-        </a>
-        <a href="https://x.com/Ra1nnYT_" class="social-link floating" target="_blank">
-          <img src="twitter.png" alt="Twitter" width="50" height="50">
-        </a>
-        <a href="https://github.com/TG20HD/" class="social-link floating" target="_blank">
-          <img src="github.png" alt="GitHub" width="50" height="50">
-        </a>
-      </div>
-    </main>
-
-    <footer>
-      <p>&copy; 2024 Rainn's Skeuomorphic World</p>
-      <a href="startup.html" class="old-homepage-button">Go back to the old homepage</a>
-    </footer>
+    <div class="container">
+        <header>
+            <h1>Rina's World</h1>
+        </header>
+        <main>
+            <img src="rainn.jpg" alt="Rainn" class="profile-pic" id="profilePic">
+            <h2>Hey, I'm Rina!</h2>
+            <p><span class="pronoun-button" id="pronounButton">Pronouns: Any</span></p>
+            <p>I'm a 16-year-old genderfluid person who loves gaming and creating cool stuff.</p>
+            <p><strong>Interests:</strong> Geometry Dash, Friday Night Funkin'</p>
+            <div class="social-links">
+                <a href="https://youtube.com/@ItsRainningOutside" target="_blank" class="social-link floating">
+                    <img src="Yt1.jpg" alt="YouTube" width="50" height="50">
+                </a>
+                <a href="https://x.com/Ra1nnYT_" target="_blank" class="social-link floating">
+                    <img src="twitter.png" alt="Twitter" width="50" height="50">
+                </a>
+                <a href="https://github.com/TG20HD/" target="_blank" class="social-link floating">
+                    <img src="github.png" alt="GitHub" width="50" height="50">
+                </a>
+            </div>
+        </main>
+        <footer>
+            &copy; 2024 Rainn's Skeuomorphic World
+            <p><a href="startup.html" class="old-homepage-button">Go back to the old homepage</a></p>
+        </footer>
+    </div>
 
     <div id="pronounModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Any Pronouns</h2>
-        <p>When someone says they use "any pronouns," it means they are comfortable with any set of pronouns being used to refer to them. This can include, but is not limited to, "he/him," "she/her," "they/them," and other pronoun sets. For example:</p>
-        <ul>
-          <li>"He went to the store" or "She went to the store" or "They went to the store"</li>
-          <li>"I saw him yesterday" or "I saw her yesterday" or "I saw them yesterday"</li>
-          <li>"That's his book" or "That's her book" or "That's their book"</li>
-        </ul>
-        <p>It's respectful to use a variety of pronouns when referring to someone who uses any pronouns. You may also ask if they have any preferences in certain contexts.</p>
-      </div>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Any Pronouns</h2>
+            <p>When someone says they use "any pronouns," it means they are comfortable with any set of pronouns being used to refer to them. This can include, but is not limited to, "he/him," "she/her," "they/them," and other pronoun sets. For example:</p>
+            <ul>
+                <li>"He went to the store" or "She went to the store" or "They went to the store"</li>
+                <li>"I saw him yesterday" or "I saw her yesterday" or "I saw them yesterday"</li>
+                <li>"That's his book" or "That's her book" or "That's their book"</li>
+            </ul>
+            <p>It's respectful to use a variety of pronouns when referring to someone who uses any pronouns. You may also ask if they have any preferences in certain contexts.</p>
+        </div>
     </div>
-  </div>
+    <script>
+        document.getElementById('profilePic').addEventListener('click', function() {
+            document.body.style.transition = 'transform 1s';
+            document.body.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                document.body.style.transition = 'none';
+                document.body.style.transform = 'none';
+            }, 1000);
+        });
+
+        const socialLinks = document.querySelectorAll('.social-link');
+        socialLinks.forEach(link => {
+            link.style.animationDelay = `${Math.random() * 2}s`;
+        });
+
+        // Pronoun modal functionality
+        var modal = document.getElementById("pronounModal");
+        var btn = document.getElementById("pronounButton");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
