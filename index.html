@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rina!</title>
+    <style>
+        /* Catppuccin Mocha Palette */
+        :root {
+            --ctp-base: #1e1e2e;
+            --ctp-mantle: #181825;
+            --ctp-crust: #11111b;
+            --ctp-text: #cdd6f4;
+            --ctp-subtext1: #bac2de;
+            --ctp-subtext0: #a6adc8;
+            --ctp-overlay2: #9399b2;
+            --ctp-overlay1: #7f849c;
+            --ctp-overlay0: #6c7086;
+            --ctp-surface2: #585b70;
+            --ctp-surface1: #45475a;
+            --ctp-surface0: #313244;
+            --ctp-lavender: #b4befe;
+            --ctp-blue: #89b4fa;
+            --ctp-sapphire: #74c7ec;
+            --ctp-sky: #89dceb;
+            --ctp-teal: #94e2d5;
+            --ctp-green: #a6e3a1;
+            --ctp-yellow: #f9e2af;
+            --ctp-peach: #fab387;
+            --ctp-maroon: #eba0ac;
+            --ctp-red: #f38ba8;
+            --ctp-mauve: #cba6f7;
+            --ctp-pink: #f5c2e7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--ctp-base) 0%, var(--ctp-mantle) 100%);
+            color: var(--ctp-text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background overlay for smooth transitions */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--ctp-base) 0%, var(--ctp-mantle) 100%);
+        }
+
+        /* Dynamic background overlays */
+        body.youtube-bg::before {
+            background: linear-gradient(135deg,
+                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-red) 30%) 0%,
+                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-maroon) 30%) 100%);
+            opacity: 1;
+        }
+
+        body.bluesky-bg::before {
+            background: linear-gradient(135deg,
+                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-sky) 30%) 0%,
+                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-sapphire) 30%) 100%);
+            opacity: 1;
+        }
+
+        body.twitter-bg::before {
+            background: linear-gradient(135deg,
+                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-blue) 30%) 0%,
+                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-sapphire) 30%) 100%);
+            opacity: 1;
+        }
+
+        body.github-bg::before {
+            background: linear-gradient(135deg,
+                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-overlay2) 30%) 0%,
+                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-surface2) 30%) 100%);
+            opacity: 1;
+        }
+
+        body.nightlight-bg::before {
+            background: linear-gradient(135deg,
+                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-mauve) 30%) 0%,
+                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-pink) 30%) 100%);
+            opacity: 1;
+        }
+
+        body.kofi-bg::before {
+            background: linear-gradient(135deg,
+                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-yellow) 30%) 0%,
+                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-peach) 30%) 100%);
+            opacity: 1;
+        }
+
+        /* Cursor particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--ctp-mauve);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: cursorFall 2s ease-out forwards;
+        }
+
+        .particle.lavender {
+            background: var(--ctp-lavender);
+        }
+
+        .particle.pink {
+            background: var(--ctp-pink);
+        }
+
+        .particle.blue {
+            background: var(--ctp-blue);
+        }
+
+        .particle.teal {
+            background: var(--ctp-teal);
+        }
+
+        @keyframes cursorFall {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100px) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-section {
+            margin-bottom: 30px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--ctp-lavender);
+            object-fit: cover;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 48px rgba(180, 190, 254, 0.3);
+        }
+
+        .username {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ctp-mauve);
+            margin-bottom: 5px;
+        }
+
+        .pronouns {
+            font-size: 14px;
+            color: var(--ctp-subtext0);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .bio {
+            color: var(--ctp-subtext1);
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .link-item {
+            background: var(--ctp-surface0);
+            border: 2px solid var(--ctp-surface1);
+            border-radius: 16px;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: var(--ctp-text);
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .link-item:hover::before {
+            left: 100%;
+        }
+
+        .link-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: var(--ctp-lavender);
+        }
+
+        .youtube:hover {
+            background: linear-gradient(135deg, var(--ctp-red), var(--ctp-maroon));
+            border-color: var(--ctp-red);
+        }
+
+        .bluesky:hover {
+            background: linear-gradient(135deg, var(--ctp-sky), var(--ctp-sapphire));
+            border-color: var(--ctp-sky);
+        }
+
+        .twitter:hover {
+            background: linear-gradient(135deg, var(--ctp-blue), var(--ctp-sapphire));
+            border-color: var(--ctp-blue);
+        }
+
+        .github:hover {
+            background: linear-gradient(135deg, var(--ctp-overlay2), var(--ctp-surface2));
+            border-color: var(--ctp-overlay2);
+        }
+
+        .kofi:hover {
+            background: linear-gradient(135deg, var(--ctp-yellow), var(--ctp-peach));
+            border-color: var(--ctp-yellow);
+        }
+
+        .nightlight:hover {
+            background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-pink));
+            border-color: var(--ctp-mauve);
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: var(--ctp-overlay2);
+            font-size: 14px;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 350px;
+            }
+
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+
+            .username {
+                font-size: 22px;
+            }
+
+            .pronouns {
+                font-size: 13px;
+            }
+
+            .link-item {
+                padding: 14px 18px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-section">
+            <img src="https://i.ibb.co/pBzhPWBm/pfp3.jpg" alt="Profile Picture" class="profile-pic">
+            <h1 class="username">RinaTheCat</h1>
+            <p class="pronouns">she/her</p>
+            <p class="bio">✨ Just your normal trans cat :3 ✨<br>Making stuff and having fun! 🐾</p>
+        </div>
+
+        <div class="links-container">
+            <a href="https://youtube.com/@ItsR1na" class="link-item youtube" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                YouTube
+            </a>
+
+            <a href="https://bsky.app/profile/itsr1na.bsky.social" class="link-item bluesky" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.81 9.498 7.823 4.308 4.557-5.073 1.082-6.498-2.83-7.078-.139-.016-.277-.034-.415-.056.14.017.279.036.415.056 2.67.296 5.568-.628 6.383-3.364.246-.829.624-5.789.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.299-1.664-.621-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/>
+                </svg>
+                Bluesky
+            </a>
+
+            <a href="https://twitter.com/itsr1na" class="link-item twitter" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                Twitter / X
+            </a>
+
+            <a href="https://github.com/ra1nnyt" class="link-item github" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+
+            <a href="https://night-light.cz/u/rina" class="link-item nightlight" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                </svg>
+                Night-Light
+            </a>
+
+            <a href="https://ko-fi.com/itsr1na" class="link-item kofi" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.017 2.254-2.499 2.254-2.499s-.023-7.93-.023-7.93l1.79-.016c1.613 0 1.613-1.596 1.613-1.596L19.135 6.4c-.604-.017-.815.146-.815.146s4.437.164 5.561 2.402z"/>
+                </svg>
+                Ko-fi
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>🌙 Made with love by Rina, using <a href="https://catppuccin.com/palette/" target="_blank" rel="noopener noreferrer" style="color: var(--ctp-mauve); text-decoration: none; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Catppuccin Mocha</a> 🌙</p>
+        </div>
+    </div>
+
+    <script>
+        // Create particles from cursor position
+        function createCursorParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+
+            // Random particle colors
+            const colors = ['', 'lavender', 'pink', 'blue', 'teal'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            if (randomColor) particle.classList.add(randomColor);
+
+            // Random size
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+
+            // Position at cursor
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+
+            // Random horizontal drift
+            const drift = (Math.random() - 0.5) * 60;
+            particle.style.setProperty('--drift', drift + 'px');
+
+            // Add slight random rotation and fall distance
+            const fallDistance = Math.random() * 50 + 80;
+            const rotation = Math.random() * 360;
+            particle.style.animationDuration = (Math.random() * 0.5 + 1.5) + 's';
+
+            document.body.appendChild(particle);
+
+            // Remove particle after animation
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 2500);
+        }
+
+        // Track mouse movement and create particles
+        let lastParticleTime = 0;
+        document.addEventListener('mousemove', function(e) {
+            const currentTime = Date.now();
+            // Throttle particle creation to every 50ms
+            if (currentTime - lastParticleTime > 50) {
+                createCursorParticle(e.clientX, e.clientY);
+                lastParticleTime = currentTime;
+            }
+        });
+
+        // Add background color transitions and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.link-item');
+            const body = document.body;
+
+            links.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.02)';
+
+                    // Add background class based on link type
+                    const linkClass = this.classList[1]; // Gets the second class (youtube, bluesky, etc.)
+                    body.className = `${linkClass}-bg`;
+                });
+
+                link.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+
+                    // Remove background class to trigger fade-out
+                    body.className = '';
+                });
+            });
+
+            // Add a subtle floating animation to the profile picture
+            const profilePic = document.querySelector('.profile-pic');
+            let floatDirection = 1;
+
+            setInterval(() => {
+                const currentTransform = profilePic.style.transform || 'translateY(0px)';
+                const currentY = parseFloat(currentTransform.match(/translateY\(([^)]+)\)/)?.[1] || 0);
+
+                if (currentY >= 5) floatDirection = -1;
+                if (currentY <= -5) floatDirection = 1;
+
+                profilePic.style.transform = `translateY(${currentY + (floatDirection * 0.5)}px)`;
+            }, 100);
+        });
+    </script>
+</body>
+</html>
