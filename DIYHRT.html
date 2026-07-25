@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY HRT Info Directory</title>
+    
+    <!-- Meta Tags -->
+    <meta name="theme-color" content="#420069">
+    <meta property="og:title" content="DIY HRT Info Directory">
+    <meta property="og:description" content="A curated collection of resources and information on DIY HRT for those in need.">
+    <meta property="og:url" content="https://diyhrt.scrumblous.com/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:title" content="DIY HRT Info Directory">
+    <meta name="twitter:description" content="A curated collection of resources and information on DIY HRT for those in need.">
+
+    <!-- Fonts & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                            dark: '#0f0a17',
+                            card: '#1a1226',
+                            border: '#2e1f45',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f0a17;
+            background-image: 
+                radial-gradient(at 20% 20%, rgba(162, 28, 175, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 80%, rgba(192, 38, 211, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(217, 70, 239, 0.2);
+        }
+        .glow-effect:hover {
+            box-shadow: 0 0 30px -2px rgba(217, 70, 239, 0.35);
+        }
+    </style>
+</head>
+<text-slate-200 class="min-h-screen flex flex-col justify-between font-sans selection:bg-brand-500 selection:text-white">
+
+    <!-- Header & Hero Section -->
+    <header class="w-full max-w-4xl mx-auto px-4 pt-12 pb-6">
+        <div class="text-center space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-900/60 border border-brand-700/50 text-brand-300 text-xs sm:text-sm font-medium mb-2">
+                <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+                Resource Directory
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-200 via-brand-300 to-pink-400 tracking-tight">
+                DIY HRT Information
+            </h1>
+            <p class="text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
+                A compiled collection of community resources, guides, and safety information for anyone seeking knowledge on DIY HRT.
+            </p>
+            <p class="text-xs text-slate-500 italic">
+                (Updated periodically as links change or move)
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-4xl mx-auto px-4 py-6 flex-grow space-y-8">
+
+        <!-- Safety Warning Banner -->
+        <section class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-rose-950/40 via-purple-950/40 to-brand-950/40 border border-rose-500/30 p-6 sm:p-8 backdrop-blur-sm">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-rose-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="flex flex-col sm:flex-row items-start gap-4">
+                <div class="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-400 shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-lg font-bold text-rose-200 flex items-center gap-2">
+                        Important Health & Safety Notice
+                    </h2>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        If you end up pursuing DIY HRT, <span class="text-rose-300 font-semibold underline underline-offset-2">please take all necessary safety precautions</span>. This includes getting routine blood tests, understanding dosage guidelines, and seeking medical consultations wherever possible.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Directory Links Grid -->
+        <section class="space-y-4">
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-brand-300/80 px-1">
+                Primary Resources & Directories
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- Link Card: diyhrt.info -->
+                <a href="https://diyhrt.info" target="_blank" rel="noopener" class="group block p-5 rounded-xl bg-brand-card border border-brand-border hover:border-brand-500/50 transition-all duration-300 glow-effect">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-white group-hover:text-brand-300 transition-colors">diyhrt.info</h4>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-500 group-hover:text-brand-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
+                            </div>
+                            <p class="text-xs text-slate-400">Comprehensive guides and starter information.</p>
+                        </div>
+                        <span class="p-2 rounded-lg bg-brand-900/40 text-brand-300 border border-brand-800/40">
+                            <i class="fa-solid fa-book text-sm"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Link Card: diyhrt.wiki -->
+                <a href="https://diyhrt.wiki" target="_blank" rel="noopener" class="group block p-5 rounded-xl bg-brand-card border border-brand-border hover:border-brand-500/50 transition-all duration-300 glow-effect">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-white group-hover:text-brand-300 transition-colors">diyhrt.wiki</h4>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-500 group-hover:text-brand-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
+                            </div>
+                            <p class="text-xs text-slate-400">Community wiki covering HRT options, routines, and safety.</p>
+                        </div>
+                        <span class="p-2 rounded-lg bg-brand-900/40 text-brand-300 border border-brand-800/40">
+                            <i class="fa-solid fa-globe text-sm"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Link Card: transfemscience -->
+                <a href="https://transfemscience.com" target="_blank" rel="noopener" class="group block p-5 rounded-xl bg-brand-card border border-brand-border hover:border-brand-500/50 transition-all duration-300 glow-effect">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-white group-hover:text-brand-300 transition-colors">Transfem Science</h4>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-500 group-hover:text-brand-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
+                            </div>
+                            <p class="text-xs text-slate-400">In-depth scientific articles, pharmacology research, and calculators.</p>
+                        </div>
+                        <span class="p-2 rounded-lg bg-brand-900/40 text-brand-300 border border-brand-800/40">
+                            <i class="fa-solid fa-flask text-sm"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Link Card: r/transdiy -->
+                <a href="https://reddit.com/r/transdiy" target="_blank" rel="noopener" class="group block p-5 rounded-xl bg-brand-card border border-brand-border hover:border-brand-500/50 transition-all duration-300 glow-effect">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-white group-hover:text-brand-300 transition-colors">r/TransDIY Subreddit</h4>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-500 group-hover:text-brand-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
+                            </div>
+                            <p class="text-xs text-slate-400">Large community discussion board with extensive FAQs and user advice.</p>
+                        </div>
+                        <span class="p-2 rounded-lg bg-brand-900/40 text-brand-300 border border-brand-800/40">
+                            <i class="fa-brands fa-reddit-alien text-sm"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Link Card: transpatientunion -->
+                <a href="https://transpatientunion.org/en/resource/diy-hrt/" target="_blank" rel="noopener" class="group block p-5 rounded-xl bg-brand-card border border-brand-border hover:border-brand-500/50 transition-all duration-300 glow-effect">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-white group-hover:text-brand-300 transition-colors">Trans Patient Union</h4>
+                                <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-900/50 text-blue-300 border border-blue-700/40">Canada Focused</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Canada-focused patient advocacy resources and DIY guidance.</p>
+                        </div>
+                        <span class="p-2 rounded-lg bg-brand-900/40 text-brand-300 border border-brand-800/40">
+                            <i class="fa-solid fa-notes-medical text-sm"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Link Card: transdiy.org -->
+                <a href="https://transdiy.org/" target="_blank" rel="noopener" class="group block p-5 rounded-xl bg-brand-card border border-brand-border hover:border-brand-500/50 transition-all duration-300 glow-effect">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-white group-hover:text-brand-300 transition-colors">transdiy.org</h4>
+                                <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-900/40 text-amber-300 border border-amber-700/40">Legacy Link</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Additional links collection (Note: older site, some links may be offline).</p>
+                        </div>
+                        <span class="p-2 rounded-lg bg-brand-900/40 text-brand-300 border border-brand-800/40">
+                            <i class="fa-solid fa-link text-sm"></i>
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Suppliers Section (Valerie.vg & Tor) -->
+        <section class="space-y-4 pt-2">
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-brand-300/80 px-1">
+                Suppliers & Tor Access
+            </h3>
+
+            <div class="p-5 rounded-xl bg-brand-card border border-brand-border space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h4 class="font-bold text-white">valerie.vg</h4>
+                            <span class="px-2 py-0.5 rounded text-xs font-medium bg-emerald-950 text-emerald-400 border border-emerald-800/50">Supplier Directory</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">
+                            List of active suppliers. (URL subject to change over time)
+                        </p>
+                    </div>
+                    <a href="https://valerie.vg/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-brand-700 hover:bg-brand-600 text-white text-xs font-semibold transition-colors">
+                        Visit Site <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <div class="pt-3 border-t border-brand-border/60">
+                    <div class="flex items-center gap-2 mb-2 text-xs font-semibold text-purple-300">
+                        <i class="fa-solid fa-user-shield"></i> Tor Hidden Service (.onion)
+                    </div>
+                    <div class="flex items-center gap-2 bg-brand-dark/80 p-2.5 rounded-lg border border-brand-border text-xs font-mono text-slate-300 overflow-x-auto">
+                        <span class="select-all text-brand-300">http://hrtcafepwnxncgj7nic37nb2hrypks5pqj4czzoasj5y7cihdi2gteyd.onion/</span>
+                        <button onclick="copyToClipboard('http://hrtcafepwnxncgj7nic37nb2hrypks5pqj4czzoasj5y7cihdi2gteyd.onion/', this)" class="ml-auto px-2 py-1 rounded bg-brand-900/60 hover:bg-brand-800 text-brand-200 text-[11px] font-sans transition-colors shrink-0">
+                            <i class="fa-regular fa-copy mr-1"></i>Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-4xl mx-auto px-4 py-8 mt-12 border-t border-brand-border/60">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            
+            <!-- Contact Info -->
+            <div class="space-y-2">
+                <div class="flex items-center gap-2 text-sm text-slate-300 font-medium">
+                    <span>Contact via Discord:</span>
+                    <a href="https://discordapp.com/users/535498477975633920" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-950/70 border border-indigo-700/50 text-indigo-200 hover:bg-indigo-900/70 transition-colors">
+                        <i class="fa-brands fa-discord text-indigo-400"></i>
+                        <span class="font-bold">scrumblous</span>
+                    </a>
+                </div>
+                <p class="text-xs text-slate-500">
+                    Reach out on Discord for link updates, suggestions, or issues.
+                </p>
+            </div>
+
+            <!-- Donations -->
+            <div class="w-full md:w-auto space-y-2">
+                <h5 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    Support / Donations
+                </h5>
+                <div class="flex flex-col gap-1.5 text-xs font-mono">
+                    <!-- Monero -->
+                    <div class="flex items-center justify-between gap-3 bg-brand-card px-3 py-1.5 rounded-md border border-brand-border">
+                        <span class="text-amber-400 font-semibold font-sans text-[11px]">XMR</span>
+                        <span class="text-slate-400 truncate max-w-[180px] sm:max-w-[240px]">885NVU4vboem69HANTPokzjeA6MGvBNaKRJXkQraxcN4bgKeBoSaMVemVGXfLuDr5DFYrj3wSajRg6UVc4uMTuNNFA1jtfM1</span>
+                        <button onclick="copyToClipboard('885NVU4vboem69HANTPokzjeA6MGvBNaKRJXkQraxcN4bgKeBoSaMVemVGXfLuDr5DFYrj3wSajRg6UVc4uMTuNNFA1jtfM1', this)" class="text-slate-400 hover:text-white transition-colors">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <!-- BTC -->
+                    <div class="flex items-center justify-between gap-3 bg-brand-card px-3 py-1.5 rounded-md border border-brand-border">
+                        <span class="text-orange-400 font-semibold font-sans text-[11px]">BTC</span>
+                        <span class="text-slate-400 truncate max-w-[180px] sm:max-w-[240px]">bc1q9h9lx8whk6x8tlhylus3gsd0eqm0u4m46mkk7l</span>
+                        <button onclick="copyToClipboard('bc1q9h9lx8whk6x8tlhylus3gsd0eqm0u4m46mkk7l', this)" class="text-slate-400 hover:text-white transition-colors">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Redesign Credit & Copyright -->
+        <div class="mt-8 pt-4 border-t border-brand-border/40 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-slate-500">
+            <p>Links provided by by <span class="text-slate-300 font-medium">Scrumblous</span></p>
+            <p class="flex items-center gap-1">
+                Website redesign by <span class="text-brand-300 font-semibold">Luna</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Copy Script -->
+    <script>
+        function copyToClipboard(text, btn) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i> Copied!`;
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+
