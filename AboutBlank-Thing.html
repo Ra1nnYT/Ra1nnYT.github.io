@@ -1,28 +1,344 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>about:blank | TG20</title>
-    </head>
-    <body>
-<h1 style="color:White;"> About:Blank Creator!</h1>
-        <script>
-        function create() {
-            var url = document.getElementById('input').value;
-            var win = window.open();
-            win.document.body.style.margin = '0';
-            win.document.body.style.height = '100vh';
-            var iframe = win.document.createElement('iframe');
-            iframe.style.border = 'none';
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.style.margin = '0';
-            iframe.src = url;
-            win.document.body.appendChild(iframe);
-        }
-        </script>
-        <input type="text" value="https://www.google.com/" placeholder="https://google.com" id='input' autofocus>
-        <button onclick='create()'>Create!</button>
-<h3 style="color:White;"> Just type in your URl, and click create. BOOM!</h3>
-<h3 style="color:White;">About Blank Creator made by Aeon</h3>
-    </body>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17121f">
+  <title>about:blank | Luna</title>
+  <meta name="description" content="Create about:blank cloaked frames in a modern interface.">
+  <script>
+    (() => {
+      const ua = navigator.userAgent || "";
+      const mobileUA = /Android.*Mobile|iPhone|iPod|Windows Phone|IEMobile|Opera Mini|Mobile Safari/i.test(ua);
+      const tabletUA = /iPad|Android(?!.*Mobile)|Tablet/i.test(ua);
+      document.documentElement.dataset.device = mobileUA ? "mobile" : (tabletUA ? "tablet" : "desktop");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@400;500;600;700&family=Google+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --seed: #cba6f7;
+      --hue: 267;
+      --chroma: 70%;
+      --primary: hsl(var(--hue) 78% 79%);
+      --on-primary: hsl(var(--hue) 35% 18%);
+      --primary-container: hsl(var(--hue) 34% 27%);
+      --on-primary-container: hsl(var(--hue) 90% 91%);
+      --secondary: hsl(calc(var(--hue) + 28) 42% 78%);
+      --tertiary: hsl(calc(var(--hue) + 80) 48% 79%);
+      --background: hsl(var(--hue) 18% 8%);
+      --surface: hsl(var(--hue) 17% 11%);
+      --surface-1: hsl(var(--hue) 17% 14%);
+      --surface-2: hsl(var(--hue) 17% 17%);
+      --surface-3: hsl(var(--hue) 17% 20%);
+      --surface-variant: hsl(var(--hue) 13% 23%);
+      --outline: hsl(var(--hue) 12% 45%);
+      --outline-variant: hsl(var(--hue) 15% 28%);
+      --on-surface: hsl(var(--hue) 20% 92%);
+      --on-surface-variant: hsl(var(--hue) 14% 75%);
+      --shadow: hsl(var(--hue) 30% 3% / .36);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --motion: cubic-bezier(.2, 0, 0, 1);
+    }
+    [data-theme="light"] {
+      color-scheme: light;
+      --primary: hsl(var(--hue) 48% 38%);
+      --on-primary: hsl(var(--hue) 100% 98%);
+      --primary-container: hsl(var(--hue) 75% 90%);
+      --on-primary-container: hsl(var(--hue) 45% 18%);
+      --secondary: hsl(calc(var(--hue) + 28) 35% 38%);
+      --tertiary: hsl(calc(var(--hue) + 80) 38% 36%);
+      --background: hsl(var(--hue) 24% 96%);
+      --surface: hsl(var(--hue) 30% 99%);
+      --surface-1: hsl(var(--hue) 26% 97%);
+      --surface-2: hsl(var(--hue) 22% 94%);
+      --surface-3: hsl(var(--hue) 20% 91%);
+      --surface-variant: hsl(var(--hue) 18% 88%);
+      --outline: hsl(var(--hue) 10% 46%);
+      --outline-variant: hsl(var(--hue) 15% 79%);
+      --on-surface: hsl(var(--hue) 24% 13%);
+      --on-surface-variant: hsl(var(--hue) 12% 32%);
+      --shadow: hsl(var(--hue) 25% 20% / .12);
+    }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh; overflow-x: hidden;
+      background: var(--background); color: var(--on-surface);
+      font-family: "Google Sans Text", "Google Sans", system-ui, sans-serif;
+      transition: background .45s var(--motion), color .35s var(--motion);
+    }
+    body::before, body::after {
+      content: ""; position: fixed; pointer-events: none; z-index: -1;
+      width: 42rem; height: 42rem; border-radius: 50%; filter: blur(90px);
+      opacity: .18; transition: background .5s ease, transform .7s var(--motion);
+    }
+    body::before { top: -22rem; left: -12rem; background: var(--primary); }
+    body::after { bottom: -27rem; right: -12rem; background: var(--tertiary); opacity: .12; }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+
+    .page {
+      width: min(720px, calc(100% - 40px)); margin: 0 auto;
+      min-height: 100vh; padding: 24px 0 30px;
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .wordmark { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -.04em; text-decoration: none; }
+    .wordmark-icon {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border-radius: 15px; background: var(--primary-container); color: var(--on-primary-container);
+    }
+    .wordmark span { font-family: "Google Sans", sans-serif; font-size: 18px; }
+    .icon-button {
+      display: inline-grid; place-items: center; width: 46px; height: 46px; padding: 0;
+      border: 1px solid var(--outline-variant); border-radius: 50%;
+      background: var(--surface-1); color: var(--on-surface); cursor: pointer;
+      transition: transform .22s var(--motion), background .25s, border-color .25s;
+    }
+    .icon-button:hover { transform: rotate(-5deg) scale(1.05); background: var(--surface-3); }
+    .icon { width: 22px; height: 22px; display: block; }
+
+    .main-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 4vw, 36px);
+      box-shadow: 0 24px 80px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .header-section h1 {
+      font: 700 clamp(28px, 3.5vw, 36px)/1.1 "Google Sans", sans-serif;
+      letter-spacing: -.045em;
+      margin: 0 0 6px 0;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: var(--on-surface-variant);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 240px;
+      background: var(--surface-1);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      padding: 12px 18px;
+      border-radius: 100px;
+      outline: none;
+      font-size: 14px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px hsl(var(--hue) 78% 79% / .2);
+    }
+
+    button {
+      background: var(--primary);
+      color: var(--on-primary);
+      border: none;
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: all 0.25s var(--motion);
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    button:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+    }
+    button:active {
+      transform: scale(0.97);
+    }
+
+    /* Theme Customizer Box */
+    .theme-card {
+      background: var(--surface-1);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .color-controls { display: flex; align-items: center; gap: 12px; }
+    .color-well { width: 44px; height: 44px; padding: 4px; border: 1px solid var(--outline); border-radius: 14px; background: var(--surface-2); cursor: pointer; flex-shrink: 0; }
+    .color-well::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-well::-webkit-color-swatch { border: 0; border-radius: 10px; }
+    .color-meta { min-width: 0; flex: 1; }
+    .color-meta strong { display: block; font-size: 13px; font-weight: 600; }
+    .color-meta small { display: block; margin-top: 2px; font-size: 11px; color: var(--on-surface-variant); }
+    .hex-value { color: var(--on-surface-variant); font: 12px ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .swatches { display: flex; gap: 8px; }
+    .swatch { width: 26px; height: 26px; border: 2px solid var(--surface); outline: 1px solid var(--outline-variant); border-radius: 50%; cursor: pointer; transition: transform .2s; }
+    .swatch:hover { transform: scale(1.15); }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--on-surface-variant);
+      font-size: 12px;
+      padding-top: 8px;
+    }
+    .footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page { width: min(100% - 24px, 500px); }
+      .form-group { flex-direction: column; align-items: stretch; }
+      input[type="text"], button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a href="#" class="wordmark">
+        <div class="wordmark-icon" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M20.2 15.2A8.8 8.8 0 0 1 8.8 3.8 8.9 8.9 0 1 0 20.2 15.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m17.5 3 .6 1.8 1.9.7-1.9.6-.6 1.9-.7-1.9-1.8-.6 1.8-.7.7-1.8Z" fill="currentColor"/></svg>
+        </div>
+        <span>about:blank | Luna</span>
+      </a>
+      <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle light/dark theme">
+        <svg class="icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+      </button>
+    </header>
+
+    <main class="main-card">
+      <div class="header-section">
+        <h1>About:Blank Creator!</h1>
+        <p class="subtitle">Just type in your URL, and click create. BOOM!</p>
+      </div>
+
+      <div class="form-group">
+        <input type="text" value="https://www.google.com/" placeholder="https://google.com" id="input" autofocus>
+        <button onclick="create()">Create!</button>
+      </div>
+
+      <!-- Theme Customizer Section -->
+      <div class="theme-card">
+        <div class="color-controls">
+          <input class="color-well" type="color" id="seedColor" value="#cba6f7" aria-label="Choose theme seed color">
+          <div class="color-meta">
+            <strong>Theme Seed Color</strong>
+            <small>Recolors the accents and UI dynamically.</small>
+          </div>
+          <output class="hex-value" id="hexValue">#CBA6F7</output>
+        </div>
+        <div class="swatches" aria-label="Color presets">
+          <button class="swatch" type="button" data-color="#cba6f7" style="background:#cba6f7" aria-label="Lavender preset" title="Lavender"></button>
+          <button class="swatch" type="button" data-color="#89b4fa" style="background:#89b4fa" aria-label="Blue preset" title="Blue"></button>
+          <button class="swatch" type="button" data-color="#94e2d5" style="background:#94e2d5" aria-label="Mint preset" title="Mint"></button>
+          <button class="swatch" type="button" data-color="#f5c2e7" style="background:#f5c2e7" aria-label="Pink preset" title="Pink"></button>
+          <button class="swatch" type="button" data-color="#f9e2af" style="background:#f9e2af" aria-label="Butter yellow preset" title="Butter yellow"></button>
+          <button class="swatch" type="button" data-color="#f38ba8" style="background:#f38ba8" aria-label="Rose preset" title="Rose"></button>
+          <button class="swatch" type="button" data-color="#a6e3a1" style="background:#a6e3a1" aria-label="Green preset" title="Green"></button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>☾ About Blank Creator made by Luna</span>
+      <span>Material 3 Expressive Design</span>
+    </footer>
+  </div>
+
+  <script>
+    function create() {
+      var url = document.getElementById('input').value;
+      var win = window.open();
+      win.document.body.style.margin = '0';
+      win.document.body.style.height = '100vh';
+      var iframe = win.document.createElement('iframe');
+      iframe.style.border = 'none';
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.margin = '0';
+      iframe.src = url;
+      win.document.body.appendChild(iframe);
+    }
+
+    const root = document.documentElement;
+    const colorInput = document.getElementById('seedColor');
+    const hexValue = document.getElementById('hexValue');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    function hexToHsl(hex) {
+      const value = hex.replace('#', '');
+      const r = parseInt(value.slice(0, 2), 16) / 255;
+      const g = parseInt(value.slice(2, 4), 16) / 255;
+      const b = parseInt(value.slice(4, 6), 16) / 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h = 0, s = 0;
+      const l = (max + min) / 2;
+      if (max !== min) {
+        const d = max - min;
+        s = l > .5 ? d / (2 - max - min) : d / (max + min);
+        if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+        else if (max === g) h = (b - r) / d + 2;
+        else h = (r - g) / d + 4;
+        h *= 60;
+      }
+      return { h, s: s * 100, l: l * 100 };
+    }
+
+    function applySeed(hex, save = true) {
+      const { h, s } = hexToHsl(hex);
+      root.style.setProperty('--hue', h.toFixed(1));
+      root.style.setProperty('--seed', hex);
+      root.style.setProperty('--chroma', `${Math.max(24, Math.min(82, s)).toFixed(0)}%`);
+      colorInput.value = hex;
+      hexValue.value = hex.toUpperCase();
+      hexValue.textContent = hex.toUpperCase();
+      metaTheme.content = getComputedStyle(root).getPropertyValue('--background').trim() || hex;
+      if (save) localStorage.setItem('luna-seed-color', hex);
+    }
+
+    function setTheme(theme, save = true) {
+      root.dataset.theme = theme;
+      const light = theme === 'light';
+      themeToggle.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} theme`);
+      themeIcon.innerHTML = light
+        ? '<path d="M20.2 15.2A8.8 8.8 0 0 1 8.8 3.8 8.9 8.9 0 1 0 20.2 15.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
+        : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>';
+      if (save) localStorage.setItem('luna-theme', theme);
+      metaTheme.content = getComputedStyle(root).getPropertyValue('--background').trim();
+    }
+
+    colorInput.addEventListener('input', e => applySeed(e.target.value));
+    document.querySelectorAll('.swatch').forEach(button => {
+      button.addEventListener('click', () => applySeed(button.dataset.color));
+    });
+    themeToggle.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+
+    try {
+      applySeed(localStorage.getItem('luna-seed-color') || '#cba6f7', false);
+      setTheme(localStorage.getItem('luna-theme') || 'dark', false);
+    } catch (_) { applySeed('#cba6f7', false); }
+  </script>
+</body>
 </html>
