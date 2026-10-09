@@ -1,464 +1,1429 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luna!</title>
-    <style>
-        /* Catppuccin Mocha Palette */
-        :root {
-            --ctp-base: #1e1e2e;
-            --ctp-mantle: #181825;
-            --ctp-crust: #11111b;
-            --ctp-text: #cdd6f4;
-            --ctp-subtext1: #bac2de;
-            --ctp-subtext0: #a6adc8;
-            --ctp-overlay2: #9399b2;
-            --ctp-overlay1: #7f849c;
-            --ctp-overlay0: #6c7086;
-            --ctp-surface2: #585b70;
-            --ctp-surface1: #45475a;
-            --ctp-surface0: #313244;
-            --ctp-lavender: #b4befe;
-            --ctp-blue: #89b4fa;
-            --ctp-sapphire: #74c7ec;
-            --ctp-sky: #89dceb;
-            --ctp-teal: #94e2d5;
-            --ctp-green: #a6e3a1;
-            --ctp-yellow: #f9e2af;
-            --ctp-peach: #fab387;
-            --ctp-maroon: #eba0ac;
-            --ctp-red: #f38ba8;
-            --ctp-mauve: #cba6f7;
-            --ctp-pink: #f5c2e7;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17121f">
+  <title>Luna! · links & little things</title>
+  <meta name="description" content="Luna's corner of the internet.">
+  <script>
+    // Set the device mode before styles render to avoid a desktop-to-mobile flash.
+    (() => {
+      const ua = navigator.userAgent || "";
+      const mobileUA = /Android.*Mobile|iPhone|iPod|Windows Phone|IEMobile|Opera Mini|Mobile Safari/i.test(ua);
+      const tabletUA = /iPad|Android(?!.*Mobile)|Tablet/i.test(ua);
+      document.documentElement.dataset.device = mobileUA ? "mobile" : (tabletUA ? "tablet" : "desktop");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@400;500;600;700&family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Flex:opsz,wght@6..144,400;6..144,500;6..144,600;6..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --seed: #cba6f7;
+      --hue: 267;
+      --chroma: 70%;
+      --primary: hsl(var(--hue) 78% 79%);
+      --on-primary: hsl(var(--hue) 35% 18%);
+      --primary-container: hsl(var(--hue) 34% 27%);
+      --on-primary-container: hsl(var(--hue) 90% 91%);
+      --secondary: hsl(calc(var(--hue) + 28) 42% 78%);
+      --tertiary: hsl(calc(var(--hue) + 80) 48% 79%);
+      --background: hsl(var(--hue) 18% 8%);
+      --surface: hsl(var(--hue) 17% 11%);
+      --surface-1: hsl(var(--hue) 17% 14%);
+      --surface-2: hsl(var(--hue) 17% 17%);
+      --surface-3: hsl(var(--hue) 17% 20%);
+      --surface-variant: hsl(var(--hue) 13% 23%);
+      --outline: hsl(var(--hue) 12% 45%);
+      --outline-variant: hsl(var(--hue) 15% 28%);
+      --on-surface: hsl(var(--hue) 20% 92%);
+      --on-surface-variant: hsl(var(--hue) 14% 75%);
+      --shadow: hsl(var(--hue) 30% 3% / .36);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --motion: cubic-bezier(.2, 0, 0, 1);
+    }
+    [data-theme="light"] {
+      color-scheme: light;
+      --primary: hsl(var(--hue) 48% 38%);
+      --on-primary: hsl(var(--hue) 100% 98%);
+      --primary-container: hsl(var(--hue) 75% 90%);
+      --on-primary-container: hsl(var(--hue) 45% 18%);
+      --secondary: hsl(calc(var(--hue) + 28) 35% 38%);
+      --tertiary: hsl(calc(var(--hue) + 80) 38% 36%);
+      --background: hsl(var(--hue) 24% 96%);
+      --surface: hsl(var(--hue) 30% 99%);
+      --surface-1: hsl(var(--hue) 26% 97%);
+      --surface-2: hsl(var(--hue) 22% 94%);
+      --surface-3: hsl(var(--hue) 20% 91%);
+      --surface-variant: hsl(var(--hue) 18% 88%);
+      --outline: hsl(var(--hue) 10% 46%);
+      --outline-variant: hsl(var(--hue) 15% 79%);
+      --on-surface: hsl(var(--hue) 24% 13%);
+      --on-surface-variant: hsl(var(--hue) 12% 32%);
+      --shadow: hsl(var(--hue) 25% 20% / .12);
+    }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh; overflow-x: hidden;
+      background: var(--background); color: var(--on-surface);
+      font-family: "Google Sans Text", "Google Sans", system-ui, sans-serif;
+      transition: background .45s var(--motion), color .35s var(--motion);
+    }
+    body::before, body::after {
+      content: ""; position: fixed; pointer-events: none; z-index: -1;
+      width: 42rem; height: 42rem; border-radius: 50%; filter: blur(90px);
+      opacity: .18; transition: background .5s ease, transform .7s var(--motion);
+    }
+    body::before { top: -22rem; left: -12rem; background: var(--primary); }
+    body::after { bottom: -27rem; right: -12rem; background: var(--tertiary); opacity: .12; }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    .page {
+      width: min(1120px, calc(100% - 40px)); margin: 0 auto;
+      min-height: 100vh; padding: 24px 0 30px;
+      display: flex; flex-direction: column;
+    }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .wordmark { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -.04em; }
+    .wordmark-icon {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border-radius: 15px; background: var(--primary-container); color: var(--on-primary-container);
+    }
+    .wordmark span { font-family: "Google Sans", sans-serif; font-size: 18px; }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-button {
+      display: inline-grid; place-items: center; width: 46px; height: 46px; padding: 0;
+      border: 1px solid var(--outline-variant); border-radius: 50%;
+      background: var(--surface-1); color: var(--on-surface); cursor: pointer;
+      transition: transform .22s var(--motion), background .25s, border-color .25s;
+    }
+    .icon-button:hover { transform: rotate(-5deg) scale(1.05); background: var(--surface-3); }
+    .icon-button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+    
+    .main-content {
+      flex: 1; display: flex; flex-direction: column; gap: 52px; padding: 45px 0 48px;
+    }
+    .layout {
+      display: grid; grid-template-columns: minmax(290px, .88fr) minmax(360px, 1.12fr);
+      gap: clamp(26px, 5vw, 68px); align-items: start;
+    }
+    .profile { position: relative; padding: clamp(26px, 4vw, 44px); border-radius: 36px; background: var(--surface);
+      border: 1px solid var(--outline-variant); box-shadow: 0 24px 80px var(--shadow); overflow: hidden; }
+    .profile::before {
+      content: ""; position: absolute; inset: 0 0 auto; height: 155px;
+      background: linear-gradient(125deg, var(--primary-container), transparent 82%);
+      opacity: .8; pointer-events: none;
+    }
+    .profile-content { position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--on-surface-variant);
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .13em; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #8bd5a5; box-shadow: 0 0 0 4px hsl(143 55% 60% / .14); }
+    .avatar-wrap { width: 142px; height: 142px; margin: 25px 0 24px; position: relative; }
+    .profile-pic { width: 100%; height: 100%; object-fit: cover; border-radius: 38px;
+      border: 4px solid var(--surface); box-shadow: 0 10px 32px var(--shadow);
+      animation: floaty 5s ease-in-out infinite; transition: border-radius .35s var(--motion), transform .35s var(--motion); }
+    .avatar-wrap:hover .profile-pic { border-radius: 50%; transform: rotate(2deg); }
+    .avatar-sparkle { position: absolute; right: -9px; top: -8px; width: 38px; height: 38px;
+      display: grid; place-items: center; border-radius: 14px; color: var(--on-primary);
+      background: var(--primary); box-shadow: 0 5px 18px var(--shadow); }
+    h1 { font: 700 clamp(36px, 4vw, 52px)/1.02 "Google Sans", sans-serif; letter-spacing: -.065em; margin: 0; }
+    .pronouns { margin: 11px 0 17px; color: var(--primary); font-weight: 600; font-size: 14px; }
+    .bio { max-width: 310px; color: var(--on-surface-variant); line-height: 1.65; margin: 0; font-size: 15px; }
+    .profile-bottom { display: flex; align-items: center; gap: 9px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--outline-variant); }
+    .mini-pill { padding: 8px 12px; border-radius: 100px; background: var(--surface-2); color: var(--on-surface-variant); font-size: 12px; font-weight: 600; }
+    .links-section { min-width: 0; display: flex; flex-direction: column; gap: 28px; align-items: center; }
+    .links-container-wrap { width: 100%; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 14px; margin: 0 0 20px; }
+    .section-heading h2 { margin: 0; font: 600 clamp(27px, 3vw, 36px)/1.1 "Google Sans", sans-serif; letter-spacing: -.045em; }
+    .section-heading p { margin: 8px 0 0; color: var(--on-surface-variant); font-size: 14px; }
+    .link-count { color: var(--on-surface-variant); background: var(--surface-2); border-radius: 100px; padding: 7px 11px; font-size: 12px; white-space: nowrap; }
+    .links-container { display: grid; gap: 12px; width: 100%; }
+    .link-item {
+      --link-tint: var(--primary-container); --link-ink: var(--on-primary-container);
+      min-height: 76px; position: relative; display: flex; align-items: center; gap: 16px;
+      padding: 13px 17px; border-radius: 24px; text-decoration: none; overflow: hidden;
+      background: var(--surface-1); border: 1px solid var(--outline-variant);
+      transition: transform .25s var(--motion), background .25s var(--motion), border-color .25s, box-shadow .25s;
+    }
+    .link-item::after { content: ""; position: absolute; width: 130px; height: 130px; right: -55px; top: -75px;
+      border-radius: 50%; background: var(--link-tint); opacity: .0; transition: opacity .25s, transform .4s var(--motion); }
+    .link-item:hover { transform: translateY(-3px); background: var(--surface-2); border-color: var(--outline); box-shadow: 0 12px 28px var(--shadow); }
+    .link-item:hover::after { opacity: .48; transform: scale(1.3); }
+    .link-item:active { transform: scale(.985); }
+    .link-icon { flex: 0 0 48px; width: 48px; height: 48px; display: grid; place-items: center;
+      border-radius: 17px; background: var(--link-tint); color: var(--link-ink); transition: border-radius .25s var(--motion), transform .25s var(--motion); }
+    .link-item:hover .link-icon { border-radius: 50%; transform: rotate(-5deg); }
+    .icon { width: 23px; height: 23px; display: block; }
+    .link-copy { min-width: 0; display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 1; }
+    .link-title { font: 600 16px/1.2 "Google Sans", sans-serif; }
+    .link-description { font-size: 12px; color: var(--on-surface-variant); }
+    .arrow { margin-left: auto; flex: 0 0 auto; position: relative; z-index: 1; color: var(--on-surface-variant); transition: transform .25s var(--motion), color .25s; }
+    .link-item:hover .arrow { transform: translate(3px,-3px); color: var(--primary); }
+    .youtube { --link-tint: hsl(4 67% 34%); --link-ink: hsl(0 100% 94%); }
+    .bluesky { --link-tint: hsl(207 72% 34%); --link-ink: hsl(205 100% 94%); }
+    .twitter { --link-tint: hsl(220 12% 29%); --link-ink: hsl(0 0% 98%); }
+    .github { --link-tint: hsl(265 15% 30%); --link-ink: hsl(270 60% 95%); }
+    .nightlight { --link-tint: hsl(276 47% 34%); --link-ink: hsl(280 100% 95%); }
+    [data-theme="light"] .youtube { --link-tint: hsl(4 78% 92%); --link-ink: hsl(4 75% 25%); }
+    [data-theme="light"] .bluesky { --link-tint: hsl(207 80% 91%); --link-ink: hsl(210 80% 24%); }
+    [data-theme="light"] .twitter { --link-tint: hsl(220 10% 87%); --link-ink: hsl(220 15% 18%); }
+    [data-theme="light"] .github { --link-tint: hsl(265 25% 90%); --link-ink: hsl(265 35% 22%); }
+    [data-theme="light"] .nightlight { --link-tint: hsl(276 55% 91%); --link-ink: hsl(276 55% 24%); }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Scroll-reveal animation containers & centering */
+    .scroll-addon {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+    .scroll-addon.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--ctp-base) 0%, var(--ctp-mantle) 100%);
-            color: var(--ctp-text);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
+    /* Grid layout for the scroll-revealed sections */
+    .scroll-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      width: 100%;
+    }
 
-        /* Background overlay for smooth transitions */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.6s ease-in-out;
-            z-index: -1;
-            background: linear-gradient(135deg, var(--ctp-base) 0%, var(--ctp-mantle) 100%);
-        }
+    /* Scroll Prompt Indicator */
+    .scroll-prompt {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--surface-2);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px var(--shadow);
+      z-index: 100;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 1;
+    }
+    .scroll-prompt.hidden {
+      opacity: 0;
+      transform: translateX(-50%) translateY(10px);
+    }
 
-        /* Dynamic background overlays */
-        body.youtube-bg::before {
-            background: linear-gradient(135deg,
-                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-red) 30%) 0%,
-                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-maroon) 30%) 100%);
-            opacity: 1;
-        }
+    /* Custom Video Player Section */
+    .media-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 16px 48px var(--shadow);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .media-card .video-wrapper {
+      flex: 1;
+    }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      background: var(--background);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-controls-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, hsl(var(--hue) 20% 6% / .85), transparent);
+      padding: 20px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    .video-wrapper:hover .video-controls-overlay,
+    .video-wrapper.paused .video-controls-overlay,
+    .video-controls-overlay:focus-within {
+      opacity: 1;
+    }
+    .video-progress-container {
+      width: 100%;
+      height: 6px;
+      background: hsl(var(--on-surface) / .2);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .video-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+    .video-buttons-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--on-surface);
+    }
+    .video-left-controls, .video-right-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ctrl-btn {
+      background: transparent;
+      border: none;
+      color: var(--on-surface);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .ctrl-btn:hover {
+      background: hsl(var(--on-surface) / .12);
+      color: var(--primary);
+    }
+    .time-display {
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface-variant);
+      margin-left: 4px;
+    }
+    .volume-slider {
+      width: 70px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
 
-        body.bluesky-bg::before {
-            background: linear-gradient(135deg,
-                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-sky) 30%) 0%,
-                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-sapphire) 30%) 100%);
-            opacity: 1;
-        }
+    /* Carousel / Grid Gallery Section */
+    .gallery-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 16px 48px var(--shadow);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-card .gallery-carousel {
+      margin-top: auto;
+    }
+    .gallery-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .gallery-header h3 {
+      margin: 0;
+      font: 600 18px "Google Sans", sans-serif;
+    }
+    .gallery-nav-btns {
+      display: flex;
+      gap: 8px;
+    }
+    .gallery-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .gallery-btn:hover {
+      background: var(--surface-3);
+      color: var(--primary);
+    }
+    .gallery-carousel {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 8px;
+    }
+    .gallery-carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .gallery-item {
+      scroll-snap-align: start;
+      flex: 0 0 180px;
+      height: 120px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--outline-variant);
+      position: relative;
+      cursor: pointer;
+      background: var(--surface-2);
+      transition: transform .25s var(--motion), border-color .25s;
+    }
+    .gallery-item:hover {
+      transform: scale(1.03);
+      border-color: var(--primary);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s var(--motion);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+    .gallery-item span {
+      position: absolute;
+      bottom: 8px; left: 8px;
+      background: hsl(0 0% 0% / .6);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 7px;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+    }
 
-        body.twitter-bg::before {
-            background: linear-gradient(135deg,
-                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-blue) 30%) 0%,
-                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-sapphire) 30%) 100%);
-            opacity: 1;
-        }
+    /* Lightbox Modal for Gallery */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: hsl(0 0% 0% / .85);
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+      backdrop-filter: blur(12px);
+    }
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox img {
+      max-width: min(90vw, 900px);
+      max-height: 80vh;
+      border-radius: var(--radius-md);
+      object-fit: contain;
+      box-shadow: 0 24px 80px hsl(0 0% 0% / .6);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: var(--surface-2);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      cursor: pointer;
+      font-size: 20px;
+      transition: background .2s, transform .2s;
+    }
+    .lightbox-close:hover {
+      background: var(--surface-3);
+      transform: scale(1.05);
+    }
 
-        body.github-bg::before {
-            background: linear-gradient(135deg,
-                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-overlay2) 30%) 0%,
-                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-surface2) 30%) 100%);
-            opacity: 1;
-        }
+    /* Trinkets & Toys Section Styles (Carousel format) */
+    .toys-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 16px 48px var(--shadow);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .toys-carousel {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 8px;
+      margin-top: 16px;
+    }
+    .toys-carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .toy-trigger-btn {
+      scroll-snap-align: start;
+      flex: 0 0 140px;
+      height: 110px;
+      background: var(--surface-1);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      padding: 16px 12px;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .25s, border-color .25s, transform .2s;
+    }
+    .toy-trigger-btn:hover {
+      background: var(--surface-2);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .toy-trigger-btn.active {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+    }
+    .toy-content-panel {
+      display: none;
+      margin-top: 16px;
+      padding: 20px;
+      background: var(--surface-1);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-md);
+      animation: fadeIn .3s ease;
+      position: relative;
+    }
+    .toy-content-panel.active {
+      display: block;
+    }
+    .toy-close-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .toy-close-row h4 {
+      margin: 0;
+      font: 600 16px "Google Sans", sans-serif;
+    }
+    .toy-close-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background .2s, color .2s;
+    }
+    .toy-close-btn:hover {
+      background: var(--surface-3);
+      color: var(--on-surface);
+    }
+    /* Clicker Toy */
+    .clicker-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      position: relative;
+    }
+    .big-click-btn {
+      background: var(--primary);
+      color: var(--on-primary);
+      border: none;
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px var(--shadow);
+      transition: transform .1s ease, filter .2s;
+    }
+    .big-click-btn:active {
+      transform: scale(0.92);
+    }
+    .floating-plus-one {
+      position: absolute;
+      color: var(--on-surface);
+      font-weight: 700;
+      font-size: 14px;
+      text-shadow: 0 2px 8px var(--shadow);
+      pointer-events: none;
+      animation: floatUpPlus .6s ease-out forwards;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes floatUpPlus {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -60px) scale(1.3); }
+    }
+    /* Dice Roll Toy */
+    .dice-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+    }
+    .dice-display {
+      width: 72px; height: 72px;
+      background: var(--surface-2);
+      border: 2px solid var(--outline);
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      box-shadow: inset 0 4px 12px var(--shadow);
+      transition: transform .3s ease;
+    }
+    .roll-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+    .roll-btn:hover {
+      background: var(--surface-3);
+      border-color: var(--primary);
+    }
+    /* Squeaky Toy */
+    .squeak-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+    }
+    .squeak-btn {
+      background: var(--tertiary);
+      color: hsl(var(--hue) 40% 15%);
+      border: none;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px var(--shadow);
+      transition: transform .15s ease, filter .2s;
+    }
+    .squeak-btn:active {
+      transform: scale(0.94);
+    }
+    /* Magic 8-Ball Toy */
+    .magic-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+    }
+    .magic-ball {
+      width: 88px; height: 88px;
+      background: radial-gradient(circle at 30% 30%, #444, #111);
+      border-radius: 50%;
+      border: 2px solid var(--outline);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 10px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      box-shadow: inset 0 8px 16px rgba(255,255,255,0.1), 0 8px 24px var(--shadow);
+      transition: transform .3s ease;
+    }
 
-        body.nightlight-bg::before {
-            background: linear-gradient(135deg,
-                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-mauve) 30%) 0%,
-                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-pink) 30%) 100%);
-            opacity: 1;
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        body.kofi-bg::before {
-            background: linear-gradient(135deg,
-                color-mix(in srgb, var(--ctp-base) 70%, var(--ctp-yellow) 30%) 0%,
-                color-mix(in srgb, var(--ctp-mantle) 70%, var(--ctp-peach) 30%) 100%);
-            opacity: 1;
-        }
-
-        /* Cursor particles */
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--ctp-mauve);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.8;
-            animation: cursorFall 2s ease-out forwards;
-        }
-
-        .particle.lavender {
-            background: var(--ctp-lavender);
-        }
-
-        .particle.pink {
-            background: var(--ctp-pink);
-        }
-
-        .particle.blue {
-            background: var(--ctp-blue);
-        }
-
-        .particle.teal {
-            background: var(--ctp-teal);
-        }
-
-        @keyframes cursorFall {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(100px) rotate(360deg) scale(0);
-                opacity: 0;
-            }
-        }
-
-        .container {
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            animation: fadeInUp 0.8s ease-out;
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .profile-section {
-            margin-bottom: 30px;
-        }
-
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid var(--ctp-lavender);
-            object-fit: cover;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 48px rgba(180, 190, 254, 0.3);
-        }
-
-        .username {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--ctp-mauve);
-            margin-bottom: 5px;
-        }
-
-        .pronouns {
-            font-size: 14px;
-            color: var(--ctp-subtext0);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .bio {
-            color: var(--ctp-subtext1);
-            font-size: 16px;
-            line-height: 1.4;
-        }
-
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .link-item {
-            background: var(--ctp-surface0);
-            border: 2px solid var(--ctp-surface1);
-            border-radius: 16px;
-            padding: 16px 20px;
-            text-decoration: none;
-            color: var(--ctp-text);
-            font-weight: 500;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .link-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .link-item:hover::before {
-            left: 100%;
-        }
-
-        .link-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            border-color: var(--ctp-lavender);
-        }
-
-        .youtube:hover {
-            background: linear-gradient(135deg, var(--ctp-red), var(--ctp-maroon));
-            border-color: var(--ctp-red);
-        }
-
-        .bluesky:hover {
-            background: linear-gradient(135deg, var(--ctp-sky), var(--ctp-sapphire));
-            border-color: var(--ctp-sky);
-        }
-
-        .twitter:hover {
-            background: linear-gradient(135deg, var(--ctp-blue), var(--ctp-sapphire));
-            border-color: var(--ctp-blue);
-        }
-
-        .github:hover {
-            background: linear-gradient(135deg, var(--ctp-overlay2), var(--ctp-surface2));
-            border-color: var(--ctp-overlay2);
-        }
-
-        .kofi:hover {
-            background: linear-gradient(135deg, var(--ctp-yellow), var(--ctp-peach));
-            border-color: var(--ctp-yellow);
-        }
-
-        .nightlight:hover {
-            background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-pink));
-            border-color: var(--ctp-mauve);
-        }
-
-        .icon {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-        }
-
-        .footer {
-            margin-top: 40px;
-            color: var(--ctp-overlay2);
-            font-size: 14px;
-        }
-
-        /* Mobile optimizations */
-        @media (max-width: 480px) {
-            .container {
-                max-width: 350px;
-            }
-
-            .profile-pic {
-                width: 100px;
-                height: 100px;
-            }
-
-            .username {
-                font-size: 22px;
-            }
-
-            .pronouns {
-                font-size: 13px;
-            }
-
-            .link-item {
-                padding: 14px 18px;
-                font-size: 15px;
-            }
-        }
-    </style>
+    .settings-panel { padding: 24px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--outline-variant); width: 100%; height: 100%; box-shadow: 0 16px 48px var(--shadow); display: flex; flex-direction: column; justify-content: space-between; }
+    .settings-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 17px; }
+    .settings-head h3 { font: 600 18px "Google Sans", sans-serif; margin: 0; }
+    .settings-head span { color: var(--on-surface-variant); font-size: 12px; }
+    .color-controls { display: flex; align-items: center; gap: 12px; }
+    .color-well { width: 48px; height: 48px; padding: 4px; border: 1px solid var(--outline); border-radius: 16px; background: var(--surface-2); cursor: pointer; flex-shrink: 0; }
+    .color-well::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-well::-webkit-color-swatch { border: 0; border-radius: 11px; }
+    .color-meta { min-width: 0; flex: 1; }
+    .color-meta strong { display: block; font-size: 14px; font-weight: 600; }
+    .color-meta small { display: block; margin-top: 4px; font-size: 12px; color: var(--on-surface-variant); }
+    .hex-value { color: var(--on-surface-variant); font: 12px ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .swatches { display: flex; gap: 9px; margin-top: 15px; }
+    .swatch { width: 28px; height: 28px; border: 2px solid var(--surface); outline: 1px solid var(--outline-variant); border-radius: 50%; cursor: pointer; transition: transform .2s; }
+    .swatch:hover { transform: scale(1.15); }
+    .footer { display: flex; justify-content: space-between; align-items: center; gap: 15px; color: var(--on-surface-variant); font-size: 12px; padding-top: 24px; }
+    .footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .footer a:hover { text-decoration: underline; }
+    .footer-note { display: inline-flex; align-items: center; gap: 7px; }
+    .particle { position: fixed; z-index: 5; width: 5px; height: 5px; border-radius: 50%; background: var(--primary); pointer-events: none; animation: drift 1.25s ease-out forwards; }
+    @keyframes drift { to { transform: translate(var(--drift), 75px) scale(0); opacity: 0; } }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    @media (max-width: 780px) {
+      .page { width: min(560px, calc(100% - 28px)); padding-top: 16px; }
+      .layout { grid-template-columns: 1fr; gap: 28px; }
+      .main-content { gap: 32px; padding: 24px 0 30px; }
+      .profile { padding: 26px; border-radius: 30px; }
+      .avatar-wrap { width: 118px; height: 118px; margin-top: 20px; }
+      .bio { max-width: 440px; }
+      .profile-bottom { margin-top: 22px; }
+      .scroll-grid { grid-template-columns: 1fr; }
+      .gallery-item { flex: 0 0 150px; height: 100px; }
+      .toy-trigger-btn { flex: 0 0 120px; height: 100px; }
+    }
+    @media (max-width: 420px) {
+      .wordmark span { font-size: 16px; }
+      .topbar { gap: 8px; }
+      .icon-button { width: 42px; height: 42px; }
+      .profile { padding: 22px; }
+      .link-item { min-height: 70px; gap: 12px; padding: 11px 12px; }
+      .link-icon { flex-basis: 44px; width: 44px; height: 44px; border-radius: 15px; }
+      .link-description { font-size: 11px; }
+      .footer { align-items: flex-start; flex-direction: column; gap: 8px; }
+    }
+    /* UA-detected mobile layout: intentionally distinct from the desktop composition. */
+    html[data-device="mobile"] .page { width: min(560px, calc(100% - 24px)); padding-top: 12px; }
+    html[data-device="mobile"] .topbar { padding: 2px 3px 0; }
+    html[data-device="mobile"] .wordmark-icon { width: 38px; height: 38px; border-radius: 14px; }
+    html[data-device="mobile"] .wordmark span { font-size: 15px; }
+    html[data-device="mobile"] .main-content { display: flex; flex-direction: column; gap: 22px; padding: 20px 0 24px; }
+    html[data-device="mobile"] .layout { display: flex; flex-direction: column; align-items: stretch; gap: 22px; }
+    html[data-device="mobile"] .profile { padding: 19px; border-radius: 28px; }
+    html[data-device="mobile"] .profile::before { height: 125px; }
+    html[data-device="mobile"] .profile-content { display: grid; grid-template-columns: 84px minmax(0, 1fr); column-gap: 16px; align-items: center; }
+    html[data-device="mobile"] .eyebrow { grid-column: 1 / -1; font-size: 10px; margin-bottom: 13px; }
+    html[data-device="mobile"] .avatar-wrap { width: 84px; height: 84px; margin: 0; grid-column: 1; grid-row: 2 / span 3; }
+    html[data-device="mobile"] .profile-pic { border-radius: 25px; border-width: 3px; }
+    html[data-device="mobile"] .avatar-sparkle { width: 28px; height: 28px; right: -6px; top: -6px; border-radius: 10px; }
+    html[data-device="mobile"] .avatar-sparkle .icon { width: 17px; height: 17px; }
+    html[data-device="mobile"] h1 { font-size: 34px; align-self: end; }
+    html[data-device="mobile"] .pronouns { margin: 5px 0 7px; font-size: 12px; }
+    html[data-device="mobile"] .bio { grid-column: 2; font-size: 12px; line-height: 1.45; }
+    html[data-device="mobile"] .profile-bottom { grid-column: 1 / -1; margin-top: 16px; padding-top: 14px; flex-wrap: wrap; }
+    html[data-device="mobile"] .mini-pill { font-size: 10px; padding: 7px 9px; }
+    html[data-device="mobile"] .section-heading { margin-bottom: 14px; align-items: center; }
+    html[data-device="mobile"] .section-heading h2 { font-size: 28px; }
+    html[data-device="mobile"] .section-heading p { font-size: 12px; margin-top: 5px; }
+    html[data-device="mobile"] .link-count { font-size: 10px; padding: 6px 9px; }
+    html[data-device="mobile"] .links-container { gap: 9px; }
+    html[data-device="mobile"] .link-item { min-height: 66px; padding: 9px 12px; border-radius: 21px; gap: 12px; }
+    html[data-device="mobile"] .link-icon { flex-basis: 44px; width: 44px; height: 44px; border-radius: 15px; }
+    html[data-device="mobile"] .link-title { font-size: 15px; }
+    html[data-device="mobile"] .link-description { font-size: 11px; }
+    html[data-device="mobile"] .scroll-grid { grid-template-columns: 1fr; }
+    html[data-device="mobile"] .footer { flex-direction: column; align-items: flex-start; gap: 7px; font-size: 11px; }
+    html[data-device="tablet"] .page { width: min(900px, calc(100% - 36px)); }
+    html[data-device="tablet"] .layout { gap: 28px; }
+    @media (max-width: 380px) {
+      html[data-device="mobile"] .profile-content { grid-template-columns: 70px minmax(0, 1fr); column-gap: 12px; }
+      html[data-device="mobile"] .avatar-wrap { width: 70px; height: 70px; }
+      html[data-device="mobile"] h1 { font-size: 30px; }
+      html[data-device="mobile"] .bio { font-size: 11px; }
+      html[data-device="mobile"] .link-description { max-width: 210px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile-section">
-            <img src="https://i.ibb.co/pBzhPWBm/pfp3.jpg" alt="Profile Picture" class="profile-pic">
-            <h1 class="username">Luna</h1>
-            <p class="pronouns">she/they/it</p>
+  <div class="page">
+    <header class="topbar">
+      <div class="wordmark">
+        <div class="wordmark-icon" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M20.2 15.2A8.8 8.8 0 0 1 8.8 3.8 8.9 8.9 0 1 0 20.2 15.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m17.5 3 .6 1.8 1.9.7-1.9.6-.6 1.9-.7-1.9-1.8-.6 1.8-.7.7-1.8Z" fill="currentColor"/></svg>
+        </div>
+        <span>luna's little corner</span>
+      </div>
+      <div class="top-actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Switch to light theme" title="Toggle light/dark theme">
+          <svg class="icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="layout">
+        <section class="profile" aria-labelledby="profile-name">
+          <div class="profile-content">
+            <div class="eyebrow"><span class="status-dot"></span> currently existing online</div>
+            <div class="avatar-wrap">
+              <img src="https://i.ibb.co/pBzhPWBm/pfp3.jpg" alt="Luna's profile picture" class="profile-pic">
+              <span class="avatar-sparkle" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-2-5.8L4 11l6-2.2L12 3Z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></svg>
+              </span>
+            </div>
+            <h1 id="profile-name">Luna<span aria-hidden="true">.</span></h1>
+            <p class="pronouns">she / they / it</p>
             <p class="bio">✨ Generic furball online ✨<br>Making stuff and having fun! 🐾</p>
-        </div>
+            <div class="profile-bottom">
+              <span class="mini-pill">creative creature</span>
+              <span class="mini-pill">probably listening to music</span>
+            </div>
+          </div>
+        </section>
 
-        <div class="links-container">
-            <a href="https://youtube.com/@LunaTehMoff" class="link-item youtube" target="_blank" rel="noopener noreferrer">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                YouTube
-            </a>
+        <section class="links-section" aria-labelledby="links-title">
+          <div class="links-container-wrap">
+            <div class="section-heading">
+              <div>
+                <h2 id="links-title">Find me around.</h2>
+                <p>Other places I hang out on the internet.</p>
+              </div>
+              <span class="link-count">05 links</span>
+            </div>
+            <nav class="links-container" aria-label="Social links">
+              <a href="https://youtube.com/@LunaTehMoff" class="link-item youtube" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span>
+                <span class="link-copy"><span class="link-title">YouTube</span><span class="link-description">Videos, music, and other creations</span></span>
+                <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+              <a href="https://bsky.app/profile/itsr1na.bsky.social" class="link-item bluesky" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.81 9.498 7.823 4.308 4.557-5.073 1.082-6.498-2.83-7.078-.139-.016-.277-.034-.415-.056.14.017.279.036.415.056 2.67.296 5.568-.628 6.383-3.364.246-.829.624-5.789.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.299-1.664-.621-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg></span>
+                <span class="link-copy"><span class="link-title">Bluesky</span><span class="link-description">Thoughts and assorted nonsense</span></span>
+                <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+              <a href="https://twitter.com/itsr1na" class="link-item twitter" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+                <span class="link-copy"><span class="link-title">Twitter / X</span><span class="link-description">The bird app that changed its name</span></span>
+                <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+              <a href="https://github.com/ra1nnyt" class="link-item github" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
+                <span class="link-copy"><span class="link-title">GitHub</span><span class="link-description">Code, experiments, and projects</span></span>
+                <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+              <a href="https://night-light.cz/u/rina" class="link-item nightlight" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 13.2A8.6 8.6 0 0 1 10.8 3.1 8.9 8.9 0 1 0 20.8 13.2Z"/><path d="m18 2 .6 1.7 1.7.6-1.7.6L18 6.7l-.6-1.8-1.7-.6 1.7-.6L18 2Z"/></svg></span>
+                <span class="link-copy"><span class="link-title">Night-Light</span><span class="link-description">My profile on Night-Light</span></span>
+                <svg class="icon arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+            </nav>
+          </div>
+        </section>
+      </div>
 
-            <a href="https://bsky.app/profile/itsr1na.bsky.social" class="link-item bluesky" target="_blank" rel="noopener noreferrer">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.81 9.498 7.823 4.308 4.557-5.073 1.082-6.498-2.83-7.078-.139-.016-.277-.034-.415-.056.14.017.279.036.415.056 2.67.296 5.568-.628 6.383-3.364.246-.829.624-5.789.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.299-1.664-.621-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/>
-                </svg>
-                Bluesky
-            </a>
+      <!-- Scroll-revealed 2x2 Grid Layout Wrapper -->
+      <div class="scroll-addon scroll-grid">
+        
+        <!-- Top Left: Featured Clip -->
+        <section class="media-card" aria-labelledby="featured-video-title">
+          <div style="padding: 18px 20px 12px; border-bottom: 1px solid var(--outline-variant); display: flex; align-items: center; justify-content: space-between;">
+            <h3 id="featured-video-title" style="margin: 0; font: 600 16px 'Google Sans', sans-serif;">Featured Clip</h3>
+            <span class="mini-pill">mp4 / webm</span>
+          </div>
+          <div class="video-wrapper paused" id="videoWrapper">
+            <video id="customVideo" preload="metadata" playsinline>
+              <source src="https://github.com/Ra1nnYT/Ra1nnYT.github.io/raw/refs/heads/main/assets/video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="video-controls-overlay" id="videoControls">
+              <div class="video-progress-container" id="progressContainer">
+                <div class="video-progress-bar" id="progressBar"></div>
+              </div>
+              <div class="video-buttons-row">
+                <div class="video-left-controls">
+                  <button class="ctrl-btn" id="playPauseBtn" aria-label="Play video" title="Play/Pause">
+                    <svg class="icon" id="playPauseIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86a1 1 0 0 0-1.5.86z"/></svg>
+                  </button>
+                  <button class="ctrl-btn" id="muteBtn" aria-label="Mute audio" title="Mute/Unmute">
+                    <svg class="icon" id="muteIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                  </button>
+                  <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="1" aria-label="Volume slider">
+                  <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+                </div>
+                <div class="video-right-controls">
+                  <button class="ctrl-btn" id="fullscreenBtn" aria-label="Toggle fullscreen" title="Fullscreen">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            <a href="https://twitter.com/itsr1na" class="link-item twitter" target="_blank" rel="noopener noreferrer">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-                Twitter / X
-            </a>
+        <!-- Top Right: Gallery -->
+        <section class="gallery-card" aria-labelledby="gallery-title">
+          <div class="gallery-header">
+            <div>
+              <h3 id="gallery-title">Gallery</h3>
+              <p style="margin: 4px 0 0; color: var(--on-surface-variant); font-size: 13px;">10-image carousel gallery (click to zoom)</p>
+            </div>
+            <div class="gallery-nav-btns">
+              <button class="gallery-btn" id="galleryPrev" aria-label="Scroll gallery left" title="Scroll left">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+              <button class="gallery-btn" id="galleryNext" aria-label="Scroll gallery right" title="Scroll right">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="gallery-carousel" id="galleryCarousel">
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna1/1200/800">
+              <img src="https://picsum.photos/seed/luna1/400/300" alt="Gallery photo 1" loading="lazy">
+              <span>01 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna2/1200/800">
+              <img src="https://picsum.photos/seed/luna2/400/300" alt="Gallery photo 2" loading="lazy">
+              <span>02 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna3/1200/800">
+              <img src="https://picsum.photos/seed/luna3/400/300" alt="Gallery photo 3" loading="lazy">
+              <span>03 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna4/1200/800">
+              <img src="https://picsum.photos/seed/luna4/400/300" alt="Gallery photo 4" loading="lazy">
+              <span>04 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna5/1200/800">
+              <img src="https://picsum.photos/seed/luna5/400/300" alt="Gallery photo 5" loading="lazy">
+              <span>05 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna6/1200/800">
+              <img src="https://picsum.photos/seed/luna6/400/300" alt="Gallery photo 6" loading="lazy">
+              <span>06 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna7/1200/800">
+              <img src="https://picsum.photos/seed/luna7/400/300" alt="Gallery photo 7" loading="lazy">
+              <span>07 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna8/1200/800">
+              <img src="https://picsum.photos/seed/luna8/400/300" alt="Gallery photo 8" loading="lazy">
+              <span>08 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna9/1200/800">
+              <img src="https://picsum.photos/seed/luna9/400/300" alt="Gallery photo 9" loading="lazy">
+              <span>09 / 10</span>
+            </div>
+            <div class="gallery-item" data-full="https://picsum.photos/seed/luna10/1200/800">
+              <img src="https://picsum.photos/seed/luna10/400/300" alt="Gallery photo 10" loading="lazy">
+              <span>10 / 10</span>
+            </div>
+          </div>
+        </section>
 
-            <a href="https://github.com/ra1nnyt" class="link-item github" target="_blank" rel="noopener noreferrer">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-            </a>
+        <!-- Bottom Left: Toys Carousel -->
+        <section class="toys-card" aria-labelledby="toys-title">
+          <div class="gallery-header" style="margin-bottom: 0;">
+            <div>
+              <h3 id="toys-title" style="margin: 0; font: 600 18px 'Google Sans', sans-serif;">Toys Carousel</h3>
+              <p style="margin: 4px 0 0; color: var(--on-surface-variant); font-size: 13px;">Pick a toy to play with!</p>
+            </div>
+            <div class="gallery-nav-btns">
+              <button class="gallery-btn" id="toysPrev" aria-label="Scroll toys left" title="Scroll left">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+              <button class="gallery-btn" id="toysNext" aria-label="Scroll toys right" title="Scroll right">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
 
-            <a href="https://night-light.cz/u/rina" class="link-item nightlight" target="_blank" rel="noopener noreferrer">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-                </svg>
-                Night-Light
-            </a>
-        </div>
+          <!-- Carousel Container for Toy Buttons -->
+          <div class="toys-carousel" id="toysCarousel">
+            <button class="toy-trigger-btn" id="triggerClicker" type="button">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+              <span>Clicker Toy</span>
+            </button>
+            <button class="toy-trigger-btn" id="triggerDice" type="button">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+              <span>Dice Roll</span>
+            </button>
+            <button class="toy-trigger-btn" id="triggerSqueak" type="button">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z"/><path d="M12 6v6l4 2"/></svg>
+              <span>Squeaky Toy</span>
+            </button>
+            <button class="toy-trigger-btn" id="triggerMagic" type="button">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg>
+              <span>Magic 8-Ball</span>
+            </button>
+          </div>
 
-        <div class="footer">
-            <p>🌙 Made with love by Rina, using <a href="https://catppuccin.com/palette/" target="_blank" rel="noopener noreferrer" style="color: var(--ctp-mauve); text-decoration: none; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Catppuccin Mocha</a> 🌙</p>
-        </div>
-    </div>
+          <!-- Expandable Panel: Clicker Toy -->
+          <div class="toy-content-panel" id="panelClicker">
+            <div class="toy-close-row">
+              <h4>🐾 Paws & Clicks</h4>
+              <button class="toy-close-btn close-toy-btn" aria-label="Close toy">&times;</button>
+            </div>
+            <div class="clicker-box" id="clickerBoxContainer">
+              <p style="margin: 0; color: var(--on-surface-variant); font-size: 13px;">Click the button as many times as you like!</p>
+              <button class="big-click-btn" id="clickerBtn">Clicks<br><span id="clickCount">0</span></button>
+            </div>
+          </div>
 
-    <script>
-        // Create particles from cursor position
-        function createCursorParticle(x, y) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
+          <!-- Expandable Panel: Dice Roll -->
+          <div class="toy-content-panel" id="panelDice">
+            <div class="toy-close-row">
+              <h4>🎲 Lucky Dice</h4>
+              <button class="toy-close-btn close-toy-btn" aria-label="Close toy">&times;</button>
+            </div>
+            <div class="dice-box">
+              <div class="dice-display" id="diceValue">6</div>
+              <button class="roll-btn" id="rollDiceBtn">Roll the Dice</button>
+            </div>
+          </div>
 
-            // Random particle colors
-            const colors = ['', 'lavender', 'pink', 'blue', 'teal'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            if (randomColor) particle.classList.add(randomColor);
+          <!-- Expandable Panel: Squeaky Toy -->
+          <div class="toy-content-panel" id="panelSqueak">
+            <div class="toy-close-row">
+              <h4>🔊 Squeak Machine</h4>
+              <button class="toy-close-btn close-toy-btn" aria-label="Close toy">&times;</button>
+            </div>
+            <div class="squeak-box">
+              <p style="margin: 0; color: var(--on-surface-variant); font-size: 13px;">Press to squeak!</p>
+              <button class="squeak-btn" id="squeakBtn">Squeak! *squeak*</button>
+            </div>
+          </div>
 
-            // Random size
-            const size = Math.random() * 4 + 2;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
+          <!-- Expandable Panel: Magic 8-Ball -->
+          <div class="toy-content-panel" id="panelMagic">
+            <div class="toy-close-row">
+              <h4>🔮 Magic 8-Ball</h4>
+              <button class="toy-close-btn close-toy-btn" aria-label="Close toy">&times;</button>
+            </div>
+            <div class="magic-box">
+              <div class="magic-ball" id="magicBallText">Ask a question & shake!</div>
+              <button class="roll-btn" id="shakeBallBtn">Shake 8-Ball</button>
+            </div>
+          </div>
+        </section>
 
-            // Position at cursor
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
+        <!-- Bottom Right: Website Theme -->
+        <section class="settings-panel" aria-labelledby="theme-settings-title">
+          <div>
+            <div class="settings-head"><h3 id="theme-settings-title">Website theme</h3><span>Dynamic color</span></div>
+            <div class="color-controls">
+              <input class="color-well" type="color" id="seedColor" value="#cba6f7" aria-label="Choose theme seed color">
+              <div class="color-meta"><strong>Theme seed</strong><small>Pick a color to recolor the whole page.</small></div>
+              <output class="hex-value" id="hexValue">#CBA6F7</output>
+            </div>
+          </div>
+          <div class="swatches" aria-label="Color presets">
+            <button class="swatch" type="button" data-color="#cba6f7" style="background:#cba6f7" aria-label="Lavender preset" title="Lavender"></button>
+            <button class="swatch" type="button" data-color="#89b4fa" style="background:#89b4fa" aria-label="Blue preset" title="Blue"></button>
+            <button class="swatch" type="button" data-color="#94e2d5" style="background:#94e2d5" aria-label="Mint preset" title="Mint"></button>
+            <button class="swatch" type="button" data-color="#f5c2e7" style="background:#f5c2e7" aria-label="Pink preset" title="Pink"></button>
+            <button class="swatch" type="button" data-color="#f9e2af" style="background:#f9e2af" aria-label="Butter yellow preset" title="Butter yellow"></button>
+            <button class="swatch" type="button" data-color="#f38ba8" style="background:#f38ba8" aria-label="Rose preset" title="Rose"></button>
+          </div>
+        </section>
 
-            // Random horizontal drift
-            const drift = (Math.random() - 0.5) * 60;
-            particle.style.setProperty('--drift', drift + 'px');
+      </div>
+    </main>
 
-            // Add slight random rotation and fall distance
-            const fallDistance = Math.random() * 50 + 80;
-            const rotation = Math.random() * 360;
-            particle.style.animationDuration = (Math.random() * 0.5 + 1.5) + 's';
+    <footer class="footer">
+      <span class="footer-note">☾ Made with love by Rina</span>
+      <span>Inspired by <a href="https://m3.material.io/blog/building-with-m3-expressive" target="_blank" rel="noopener noreferrer">Material 3 Expressive</a> · <a href="https://catppuccin.com/palette/" target="_blank" rel="noopener noreferrer">Catppuccin Mocha</a></span>
+    </footer>
+  </div>
 
-            document.body.appendChild(particle);
+  <!-- Scroll Prompt Indicator at Bottom Center of View -->
+  <div class="scroll-prompt" id="scrollPrompt">scroll for more ↓</div>
 
-            // Remove particle after animation
-            setTimeout(() => {
-                if (particle.parentNode) {
-                    particle.parentNode.removeChild(particle);
-                }
-            }, 2500);
+  <!-- Lightbox Modal Overlay -->
+  <div class="lightbox" id="lightboxModal" aria-modal="true" role="dialog" aria-label="Image lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+    <img id="lightboxImg" src="" alt="Enlarged view">
+  </div>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const colorInput = document.getElementById('seedColor');
+      const hexValue = document.getElementById('hexValue');
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+      // UA detection is primary; a narrow viewport fallback catches unusual mobile browsers.
+      if (root.dataset.device === "desktop" && window.matchMedia("(max-width: 600px)").matches) {
+        root.dataset.device = "mobile";
+      }
+
+      function hexToHsl(hex) {
+        const value = hex.replace('#', '');
+        const r = parseInt(value.slice(0, 2), 16) / 255;
+        const g = parseInt(value.slice(2, 4), 16) / 255;
+        const b = parseInt(value.slice(4, 6), 16) / 255;
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h = 0, s = 0;
+        const l = (max + min) / 2;
+        if (max !== min) {
+          const d = max - min;
+          s = l > .5 ? d / (2 - max - min) : d / (max + min);
+          if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+          else if (max === g) h = (b - r) / d + 2;
+          else h = (r - g) / d + 4;
+          h *= 60;
         }
+        return { h, s: s * 100, l: l * 100 };
+      }
+      function applySeed(hex, save = true) {
+        const { h, s } = hexToHsl(hex);
+        root.style.setProperty('--hue', h.toFixed(1));
+        root.style.setProperty('--seed', hex);
+        root.style.setProperty('--chroma', `${Math.max(24, Math.min(82, s)).toFixed(0)}%`);
+        colorInput.value = hex;
+        hexValue.value = hex.toUpperCase();
+        hexValue.textContent = hex.toUpperCase();
+        metaTheme.content = getComputedStyle(root).getPropertyValue('--background').trim() || hex;
+        if (save) localStorage.setItem('luna-seed-color', hex);
+      }
+      function setTheme(theme, save = true) {
+        root.dataset.theme = theme;
+        const light = theme === 'light';
+        themeToggle.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} theme`);
+        themeIcon.innerHTML = light
+          ? '<path d="M20.2 15.2A8.8 8.8 0 0 1 8.8 3.8 8.9 8.9 0 1 0 20.2 15.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
+          : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>';
+        if (save) localStorage.setItem('luna-theme', theme);
+        metaTheme.content = getComputedStyle(root).getPropertyValue('--background').trim();
+      }
+      colorInput.addEventListener('input', e => applySeed(e.target.value));
+      document.querySelectorAll('.swatch').forEach(button => {
+        button.addEventListener('click', () => applySeed(button.dataset.color));
+      });
+      themeToggle.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+      try {
+        applySeed(localStorage.getItem('luna-seed-color') || '#cba6f7', false);
+        setTheme(localStorage.getItem('luna-theme') || 'dark', false);
+      } catch (_) { applySeed('#cba6f7', false); }
 
-        // Track mouse movement and create particles
-        let lastParticleTime = 0;
-        document.addEventListener('mousemove', function(e) {
-            const currentTime = Date.now();
-            // Throttle particle creation to every 50ms
-            if (currentTime - lastParticleTime > 50) {
-                createCursorParticle(e.clientX, e.clientY);
-                lastParticleTime = currentTime;
-            }
+      // Scroll-based visibility toggle for video/gallery/toys and scroll prompt
+      const scrollPrompt = document.getElementById('scrollPrompt');
+      const scrollAddons = document.querySelectorAll('.scroll-addon');
+
+      function handleScrollState() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        if (scrollY > 15) {
+          if (scrollPrompt) scrollPrompt.classList.add('hidden');
+          scrollAddons.forEach(el => el.classList.add('is-visible'));
+        } else {
+          if (scrollPrompt) scrollPrompt.classList.remove('hidden');
+          scrollAddons.forEach(el => el.classList.remove('is-visible'));
+        }
+      }
+
+      window.addEventListener('scroll', handleScrollState, { passive: true });
+      handleScrollState();
+
+      // Custom Video Player Logic
+      const video = document.getElementById('customVideo');
+      const videoWrapper = document.getElementById('videoWrapper');
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const playPauseIcon = document.getElementById('playPauseIcon');
+      const muteBtn = document.getElementById('muteBtn');
+      const muteIcon = document.getElementById('muteIcon');
+      const volumeSlider = document.getElementById('volumeSlider');
+      const progressContainer = document.getElementById('progressContainer');
+      const progressBar = document.getElementById('progressBar');
+      const timeDisplay = document.getElementById('timeDisplay');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+      function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+
+      video.addEventListener('loadedmetadata', () => {
+        timeDisplay.textContent = `0:00 / ${formatTime(video.duration)}`;
+      });
+
+      function togglePlay() {
+        if (video.paused) {
+          video.play();
+          playPauseIcon.innerHTML = '<path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>';
+          videoWrapper.classList.remove('paused');
+        } else {
+          video.pause();
+          playPauseIcon.innerHTML = '<path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86a1 1 0 0 0-1.5.86z"/>';
+          videoWrapper.classList.add('paused');
+        }
+      }
+
+      playPauseBtn.addEventListener('click', togglePlay);
+      video.addEventListener('click', togglePlay);
+
+      video.addEventListener('timeupdate', () => {
+        const current = video.currentTime;
+        const duration = video.duration || 0;
+        const percent = duration > 0 ? (current / duration) * 100 : 0;
+        progressBar.style.width = `${percent}%`;
+        timeDisplay.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
+      });
+
+      progressContainer.addEventListener('click', e => {
+        const rect = progressContainer.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        if (video.duration) {
+          video.currentTime = pos * video.duration;
+        }
+      });
+
+      muteBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        if (video.muted) {
+          muteIcon.innerHTML = '<line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v6a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.12-2.12"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M2 12h2m4 0h1"/></line>';
+          muteIcon.firstChild.style.stroke = 'currentColor';
+        } else {
+          muteIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+        }
+      });
+
+      volumeSlider.addEventListener('input', e => {
+        video.volume = e.target.value;
+        video.muted = video.volume === 0;
+      });
+
+      fullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          videoWrapper.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+
+      // Gallery Carousel & Lightbox Logic
+      const carousel = document.getElementById('galleryCarousel');
+      document.getElementById('galleryPrev').addEventListener('click', () => {
+        carousel.scrollBy({ left: -240, behavior: 'smooth' });
+      });
+      document.getElementById('galleryNext').addEventListener('click', () => {
+        carousel.scrollBy({ left: 240, behavior: 'smooth' });
+      });
+
+      const lightboxModal = document.getElementById('lightboxModal');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxClose = document.getElementById('lightboxClose');
+
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const fullSrc = item.getAttribute('data-full');
+          lightboxImg.src = fullSrc;
+          lightboxModal.classList.add('active');
+        });
+      });
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('active');
+        lightboxImg.src = '';
+      }
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxModal.addEventListener('click', e => {
+        if (e.target === lightboxModal) closeLightbox();
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeLightbox();
+      });
+
+      // Toys Carousel Nav Logic
+      const toysCarousel = document.getElementById('toysCarousel');
+      document.getElementById('toysPrev').addEventListener('click', () => {
+        toysCarousel.scrollBy({ left: -160, behavior: 'smooth' });
+      });
+      document.getElementById('toysNext').addEventListener('click', () => {
+        toysCarousel.scrollBy({ left: 160, behavior: 'smooth' });
+      });
+
+      // Trinkets & Toys Interactive Logic
+      const triggers = [
+        { btn: document.getElementById('triggerClicker'), panel: document.getElementById('panelClicker') },
+        { btn: document.getElementById('triggerDice'), panel: document.getElementById('panelDice') },
+        { btn: document.getElementById('triggerSqueak'), panel: document.getElementById('panelSqueak') },
+        { btn: document.getElementById('triggerMagic'), panel: document.getElementById('panelMagic') }
+      ];
+
+      function openToy(activeTrigger, activePanel) {
+        triggers.forEach(t => {
+          t.btn.classList.remove('active');
+          t.panel.classList.remove('active');
+        });
+        activeTrigger.classList.add('active');
+        activePanel.classList.add('active');
+      }
+
+      function closeAllToys() {
+        triggers.forEach(t => {
+          t.btn.classList.remove('active');
+          t.panel.classList.remove('active');
+        });
+      }
+
+      triggers.forEach(t => {
+        t.btn.addEventListener('click', () => {
+          if (t.panel.classList.contains('active')) {
+            closeAllToys();
+          } else {
+            openToy(t.btn, t.panel);
+          }
+        });
+      });
+
+      document.querySelectorAll('.close-toy-btn').forEach(btn => {
+        btn.addEventListener('click', closeAllToys);
+      });
+
+      // Toy 1: Clicker with audio URL and positioned +1 particle
+      let clickCount = 0;
+      const clickerBtn = document.getElementById('clickerBtn');
+      const clickCountDisplay = document.getElementById('clickCount');
+      const clickerBoxContainer = document.getElementById('clickerBoxContainer');
+      const clickerAudio = new Audio('https://github.com/Ra1nnYT/Ra1nnYT.github.io/raw/refs/heads/main/assets/clicker.mp3');
+
+      clickerBtn.addEventListener('click', (e) => {
+        clickCount++;
+        clickCountDisplay.textContent = clickCount;
+
+        // Play clicker audio with fallback synth
+        clickerAudio.currentTime = 0;
+        clickerAudio.play().catch(() => {
+          try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.05);
+          } catch (_) {}
         });
 
-        // Add background color transitions and interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('.link-item');
-            const body = document.body;
+        // Spawn +1 floating element exactly where clicked relative to the container
+        const plusOne = document.createElement('span');
+        plusOne.className = 'floating-plus-one';
+        plusOne.textContent = '+1';
+        const containerRect = clickerBoxContainer.getBoundingClientRect();
+        const x = (e.clientX || (e.touches && e.touches[0].clientX)) - containerRect.left;
+        const y = (e.clientY || (e.touches && e.touches[0].clientY)) - containerRect.top;
+        plusOne.style.left = `${x}px`;
+        plusOne.style.top = `${y}px`;
+        clickerBoxContainer.appendChild(plusOne);
+        setTimeout(() => plusOne.remove(), 600);
+      });
 
-            links.forEach(link => {
-                link.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-2px) scale(1.02)';
+      // Toy 2: Dice Roll
+      const rollDiceBtn = document.getElementById('rollDiceBtn');
+      const diceValue = document.getElementById('diceValue');
+      rollDiceBtn.addEventListener('click', () => {
+        diceValue.style.transform = 'scale(1.2) rotate(10deg)';
+        setTimeout(() => {
+          const roll = Math.floor(Math.random() * 6) + 1;
+          diceValue.textContent = roll;
+          diceValue.style.transform = 'scale(1) rotate(0deg)';
+        }, 150);
+      });
 
-                    // Add background class based on link type
-                    const linkClass = this.classList[1]; // Gets the second class (youtube, bluesky, etc.)
-                    body.className = `${linkClass}-bg`;
-                });
+      // Toy 3: Squeaky Toy with audio URL
+      const squeakBtn = document.getElementById('squeakBtn');
+      const squeakAudio = new Audio('https://github.com/Ra1nnYT/Ra1nnYT.github.io/raw/refs/heads/main/assets/sqek.mp3');
 
-                link.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-
-                    // Remove background class to trigger fade-out
-                    body.className = '';
-                });
-            });
-
-            // Add a subtle floating animation to the profile picture
-            const profilePic = document.querySelector('.profile-pic');
-            let floatDirection = 1;
-
-            setInterval(() => {
-                const currentTransform = profilePic.style.transform || 'translateY(0px)';
-                const currentY = parseFloat(currentTransform.match(/translateY\(([^)]+)\)/)?.[1] || 0);
-
-                if (currentY >= 5) floatDirection = -1;
-                if (currentY <= -5) floatDirection = 1;
-
-                profilePic.style.transform = `translateY(${currentY + (floatDirection * 0.5)}px)`;
-            }, 100);
+      squeakBtn.addEventListener('click', () => {
+        squeakAudio.currentTime = 0;
+        squeakAudio.play().catch(() => {
+          try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1400, audioCtx.currentTime + 0.08);
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.15);
+          } catch (_) {}
         });
-    </script>
+      });
+
+      // Toy 4: Magic 8-Ball
+      const shakeBallBtn = document.getElementById('shakeBallBtn');
+      const magicBallText = document.getElementById('magicBallText');
+      const fortunes = [
+        "It is certain.",
+        "Outlook good.",
+        "Reply hazy, try again.",
+        "Don't count on it.",
+        "Signs point to yes.",
+        "Very doubtful.",
+        "Without a doubt."
+      ];
+      shakeBallBtn.addEventListener('click', () => {
+        magicBallText.style.transform = 'scale(1.1) rotate(-8deg)';
+        magicBallText.textContent = "Shaking...";
+        setTimeout(() => {
+          const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          magicBallText.textContent = randomFortune;
+          magicBallText.style.transform = 'scale(1) rotate(0deg)';
+        }, 300);
+      });
+
+      // Tiny cursor sparkles, disabled for touch input and reduced-motion preferences.
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      let lastParticle = 0;
+      if (!reduceMotion && finePointer) {
+        document.addEventListener('pointermove', event => {
+          const now = performance.now();
+          if (now - lastParticle < 75) return;
+          lastParticle = now;
+          const particle = document.createElement('span');
+          particle.className = 'particle';
+          particle.style.left = `${event.clientX}px`;
+          particle.style.top = `${event.clientY}px`;
+          particle.style.setProperty('--drift', `${(Math.random() - .5) * 50}px`);
+          particle.style.background = Math.random() > .5 ? 'var(--primary)' : 'var(--tertiary)';
+          document.body.appendChild(particle);
+          particle.addEventListener('animationend', () => particle.remove(), { once: true });
+        }, { passive: true });
+      }
+    })();
+  </script>
 </body>
 </html>
