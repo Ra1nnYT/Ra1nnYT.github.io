@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aquarium Lamp</title>
+<style>
+:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--room:#12141a;--s1:#f1f2f4;--s2:#b5b8bf;--s3:#7b7f87;--s4:#565a62}
+*{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(ellipse at 50% 55%,#1d2431,var(--room) 72%);display:flex;align-items:center;justify-content:center;font-family:"Trebuchet MS","Segoe UI",sans-serif;color:#cfd4de;overflow-x:hidden}
+.wrap{width:min(94vw,860px);padding:12px;position:relative}
+.lamp{position:relative;filter:drop-shadow(0 26px 30px rgba(0,0,0,.65))}
+.pool{position:absolute;left:6%;right:6%;bottom:-34px;height:60px;border-radius:50%;background:radial-gradient(ellipse,rgba(60,150,255,.55),rgba(60,150,255,0) 70%);filter:blur(10px);opacity:0;transition:opacity .8s;pointer-events:none}
+.on .pool{opacity:1}
+.brushed{background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,rgba(0,0,0,.05) 1px 3px)}
+.cap,.base{position:relative;background:linear-gradient(#fafafb,var(--s1) 14%,var(--s2) 62%,var(--s3) 92%,var(--s4));box-shadow:inset 0 2px 2px #fff,inset 0 -3px 6px rgba(0,0,0,.4),inset 3px 0 4px rgba(255,255,255,.5),inset -4px 0 6px rgba(0,0,0,.3)}
+.cap{height:clamp(32px,7.5vw,62px);border-radius:16px 16px 8px 8px}
+.cap::before{content:"";position:absolute;left:8%;right:8%;top:30%;height:30%;background:radial-gradient(circle,#444 1.4px,rgba(0,0,0,0) 2.3px) 0 0/11px 11px;opacity:.55;-webkit-mask:linear-gradient(90deg,#000 0 38%,rgba(0,0,0,0) 38% 46%,#000 46%);mask:linear-gradient(90deg,#000 0 38%,rgba(0,0,0,0) 38% 46%,#000 46%)}
+.cap::after{content:"";position:absolute;left:2%;right:2%;bottom:-1px;height:8px;border-radius:0 0 8px 8px;background:linear-gradient(rgba(70,160,255,0),rgba(90,170,255,.0));transition:background .8s}
+.on .cap::after{background:linear-gradient(rgba(70,160,255,0),rgba(110,190,255,.55))}
+.base{height:clamp(50px,11vw,90px);border-radius:6px 6px 26px 26px}
+.base::before{content:"";position:absolute;left:3%;right:3%;top:0;height:8px;background:linear-gradient(rgba(110,190,255,0),rgba(0,0,0,0));transition:background .8s}
+.on .base::before{background:linear-gradient(rgba(110,190,255,.5),rgba(110,190,255,0))}
+.seam{position:absolute;left:0;right:0;top:46%;height:2px;background:rgba(0,0,0,.18);box-shadow:0 1px 0 rgba(255,255,255,.5)}
+.screw{position:absolute;top:22%;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#888 55%,#555);box-shadow:0 1px 1px rgba(0,0,0,.5)}
+.screw::after{content:"";position:absolute;left:1px;right:1px;top:4px;height:1px;background:#333;transform:rotate(35deg)}
+.feet{position:absolute;left:14%;right:14%;bottom:-8px;height:10px;display:flex;justify-content:space-between}
+.feet i{width:18%;height:100%;border-radius:0 0 12px 12px;background:linear-gradient(#444,#111)}
+.glass{position:relative;margin:0 2.4%;aspect-ratio:800/480;background:#031a4a;overflow:hidden;box-shadow:inset 0 0 26px rgba(0,0,0,.7)}
+canvas{width:100%;height:100%;display:block;transition:filter .5s}
+.off canvas{filter:brightness(.05) saturate(.35)}
+.glass::after{content:"";position:absolute;inset:0;pointer-events:none;
+background:linear-gradient(90deg,rgba(255,255,255,.4),rgba(255,255,255,.05) 3%,rgba(255,255,255,0) 8%,rgba(255,255,255,0) 90%,rgba(255,255,255,.06) 96%,rgba(255,255,255,.34)),
+linear-gradient(100deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.09) 24%,rgba(255,255,255,0) 30%),
+linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0) 22%,rgba(0,0,0,0) 80%,rgba(0,0,40,.25))}
+.sw{position:absolute;right:12%;top:50%;transform:translateY(-50%);width:clamp(34px,7vw,56px);height:clamp(22px,4.6vw,36px);border:0;border-radius:3px;background:#141414;cursor:pointer;box-shadow:0 1px 0 #fff9,inset 0 0 0 2px #000;padding:0}
+.sw::before{content:"";position:absolute;inset:4px 50% 4px 4px;border-radius:2px;background:linear-gradient(#555,#111);transition:.15s}
+.on .sw::before{inset:4px 4px 4px 50%;background:linear-gradient(#f55,#900)}
+.sw:focus-visible,.snd:focus-visible{outline:3px solid #7cf;outline-offset:3px}
+.row{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:30px;font-size:14px;opacity:.75}
+.foot{text-align:center;margin:26px 0 0;font-size:12px}
+.foot a{color:#8c96a8;text-decoration:none;opacity:.7}
+.foot a:hover,.foot a:focus-visible{opacity:1;text-decoration:underline;outline:none}
+.snd{background:#232a38;color:inherit;border:1px solid #3a4558;border-radius:18px;padding:6px 14px;cursor:pointer;font:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lamp on" id="lamp">
+    <div class="pool"></div>
+    <div class="cap brushed"></div>
+    <div class="glass"><canvas id="c" width="800" height="480" aria-label="Rotating tropical ocean scene inside an aquarium lamp"></canvas></div>
+    <div class="base brushed"><span class="seam"></span><span class="screw" style="left:3%"></span><span class="screw" style="right:3%"></span><button class="sw" id="sw" aria-label="Power switch" aria-pressed="true"></button><span class="feet"><i></i><i></i></span></div>
+  </div>
+  <div class="row"><span id="hint">Tap anywhere to let the motor hum.</span><button class="snd" id="snd" aria-pressed="true">Sound on</button></div>
+  <p class="foot"><a href="/index.html">made by Luna</a></p>
+</div>
+<script>
+(function(){
+var W=800,H=480,TM=.9,R=400/TM;
+var c=document.getElementById('c'),x=c.getContext('2d');
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var lamp=document.getElementById('lamp'),sw=document.getElementById('sw'),snd=document.getElementById('snd'),hint=document.getElementById('hint');
+var on=true,speed=0,off=0,running=false,last=0,ready=false,ext,P,sound=true;
+
+// build the loop: the image repeated, extended so a view never crosses an edge
+var img=new Image();
+img.onload=function(){
+  var tw=Math.round(img.width*H/img.height);P=tw;
+  ext=document.createElement('canvas');ext.width=P+W+40;ext.height=H;var e=ext.getContext('2d');
+  for(var o=0;o<ext.width;o+=tw)e.drawImage(img,o,0,tw,H);
+  ready=true;start()};
+img.crossOrigin="anonymous";
+img.onerror=function(){hint.textContent="Could not load lamp.jpg."};
+img.src="https://raw.githubusercontent.com/Ra1nnYT/Ra1nnYT.github.io/refs/heads/main/lamp.jpg";
+
+function draw(t){
+  if(!ready)return;
+  var flick=1+Math.sin(t*37)*.012*speed+Math.sin(t*3.1)*.015;
+  x.clearRect(0,0,W,H);
+  var step=2;
+  for(var sx=0;sx<W;sx+=step){
+    var a=Math.asin(((sx/W)*2-1)*Math.sin(TM)),b=Math.asin((((sx+step)/W)*2-1)*Math.sin(TM));
+    var s0=off+R*(a+TM),s1=off+R*(b+TM);
+    // film flutter: gentle water-like wobble
+    var wy=Math.sin(t*1.4+sx*.021)*2.2+Math.sin(t*.8+sx*.06)*1.2;
+    var wx=Math.sin(t*1.9+sx*.03)*1.4;
+    x.drawImage(ext,s0,0,s1-s0,H,sx+wx,wy,step+.6,H)}
+  // inside lighting: hot bulb behind centre, falloff to the curved edges
+  var g=x.createRadialGradient(W*.5,H*.45,20,W*.5,H*.5,W*.62);
+  g.addColorStop(0,'rgba(190,235,255,'+(.2*flick)+')');g.addColorStop(.55,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,10,40,.55)');
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  var s=x.createLinearGradient(0,0,W,0);
+  s.addColorStop(0,'rgba(0,12,50,.55)');s.addColorStop(.1,'rgba(0,12,50,0)');s.addColorStop(.9,'rgba(0,12,50,0)');s.addColorStop(1,'rgba(0,12,50,.55)');
+  x.fillStyle=s;x.fillRect(0,0,W,H);
+  // slight green-blue tint of acrylic
+  x.fillStyle='rgba(40,120,220,.06)';x.fillRect(0,0,W,H);
+}
+function frame(now){
+  if(!running)return;
+  var dt=Math.min((now-last)/1000,.05);last=now;
+  var target=on?1:0;speed+=(target-speed)*(1-Math.exp(-dt*(on?1.6:2.4)));
+  if(!on&&speed<.01){speed=0;running=false;draw(now/1000);audio();return}
+  off=(off+26*speed*(reduce?.3:1)*dt)%P;
+  draw(now/1000);audio();
+  requestAnimationFrame(frame)}
+function start(){if(!running){running=true;last=performance.now();requestAnimationFrame(frame)}}
+
+// ---- sound ----
+var AC,m,mg,hg,ng,master;
+function initAudio(){
+  if(AC){if(AC.state==='suspended')AC.resume();return}
+  var AX=window.AudioContext||window.webkitAudioContext;if(!AX)return;
+  AC=new AX();master=AC.createGain();master.gain.value=1;
+  var lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=900;master.connect(lp);lp.connect(AC.destination);
+  m=AC.createOscillator();m.type='sawtooth';m.frequency.value=40;
+  var mf=AC.createBiquadFilter();mf.type='lowpass';mf.frequency.value=260;mg=AC.createGain();mg.gain.value=0;
+  m.connect(mf);mf.connect(mg);mg.connect(master);
+  var lfo=AC.createOscillator(),lg=AC.createGain();lfo.frequency.value=2.7;lg.gain.value=1.2;lfo.connect(lg);lg.connect(m.frequency);
+  hg=AC.createGain();hg.gain.value=0;
+  [60,120,180].forEach(function(f,i){var o=AC.createOscillator();o.frequency.value=f;var g=AC.createGain();g.gain.value=[1,.5,.15][i];o.connect(g);g.connect(hg);o.start()});
+  hg.connect(master);
+  var nb=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate),d=nb.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  var n=AC.createBufferSource();n.buffer=nb;n.loop=true;var bp=AC.createBiquadFilter();bp.type='bandpass';bp.frequency.value=650;bp.Q.value=.9;
+  ng=AC.createGain();ng.gain.value=0;n.connect(bp);bp.connect(ng);ng.connect(master);
+  m.start();lfo.start();n.start();audio()}
+function audio(){
+  if(!AC)return;var t=AC.currentTime,sOn=sound?1:0;
+  m.frequency.setTargetAtTime(18+34*speed,t,.05);
+  mg.gain.setTargetAtTime(.07*speed*sOn,t,.08);
+  ng.gain.setTargetAtTime(.012*speed*sOn,t,.08);
+  hg.gain.setTargetAtTime(on?.012*sOn:0,t,.03)}
+function click(){
+  if(!AC||!sound)return;var t=AC.currentTime,len=AC.sampleRate*.05,b=AC.createBuffer(1,len,AC.sampleRate),d=b.getChannelData(0);
+  for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,4);
+  var s=AC.createBufferSource();s.buffer=b;var f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=1200;var g=AC.createGain();g.gain.value=.35;
+  s.connect(f);f.connect(g);g.connect(AC.destination);s.start(t)}
+function unlock(){initAudio();hint.textContent=on?'The lamp is running.':'The lamp is off.';
+  removeEventListener('pointerdown',unlock);removeEventListener('keydown',unlock)}
+addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+
+sw.addEventListener('click',function(){
+  initAudio();on=!on;click();
+  lamp.classList.toggle('on',on);lamp.classList.toggle('off',!on);sw.setAttribute('aria-pressed',on);
+  hint.textContent=on?'The lamp is running.':'The lamp is off.';
+  audio();start()});
+snd.addEventListener('click',function(e){e.stopPropagation();initAudio();sound=!sound;snd.textContent=sound?'Sound on':'Sound off';snd.setAttribute('aria-pressed',sound);audio()});
+})();
+</script>
+</body>
+</html>
